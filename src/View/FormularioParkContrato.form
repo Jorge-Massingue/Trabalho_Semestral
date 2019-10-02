@@ -25,7 +25,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="940" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="912" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -49,37 +49,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
+              <Component id="TabbedPaneCliente" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="labelVaga" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                              <Component id="TabbedPaneCliente" max="32767" attributes="0"/>
-                              <Component id="labelCliente" min="-2" pref="87" max="-2" attributes="0"/>
-                              <Component id="labelModelo" min="-2" pref="67" max="-2" attributes="0"/>
-                              <Component id="textFieldViatura" min="-2" pref="352" max="-2" attributes="0"/>
-                              <Component id="labelTipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="TextFieldMorada" alignment="0" min="-2" pref="352" max="-2" attributes="0"/>
-                              <Component id="ComboBoxCliente" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="408" pref="408" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="labelNumBi1" min="-2" pref="149" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="labelValor" min="-2" pref="106" max="-2" attributes="0"/>
-                                          <EmptySpace min="329" pref="329" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="TextFieldMatricula" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="textFiledNumBi" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="ComboBoxVaga" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
                           <Component id="ButtonSalvar" min="-2" pref="98" max="-2" attributes="0"/>
@@ -90,8 +62,35 @@
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="ButtonList" min="-2" pref="98" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="labelCliente" min="-2" pref="87" max="-2" attributes="0"/>
+                              <Component id="labelModelo" min="-2" pref="67" max="-2" attributes="0"/>
+                              <Component id="textFieldViatura" min="-2" pref="352" max="-2" attributes="0"/>
+                              <Component id="labelTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="TextFieldMorada" alignment="0" min="-2" pref="352" max="-2" attributes="0"/>
+                              <Component id="ComboBoxCliente" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="408" pref="408" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="TextFieldMatricula" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="textFiledNumBi" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="labelNumBi1" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
+                                              <Component id="labelValor" min="-2" pref="106" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="286" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="ComboBoxVaga" alignment="0" min="-2" pref="843" max="-2" attributes="0"/>
+                              <Component id="labelVaga" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -99,7 +98,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="labelCliente" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="ComboBoxCliente" min="-2" pref="29" max="-2" attributes="0"/>
@@ -127,7 +126,7 @@
                   <Component id="labelVaga" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="ComboBoxVaga" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="ButtonSalvar" min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="ButtonUpdate" min="-2" pref="52" max="-2" attributes="0"/>
@@ -145,7 +144,7 @@
         <Component class="javax.swing.JLabel" name="labelCliente">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
@@ -153,7 +152,7 @@
         <Component class="javax.swing.JLabel" name="labelModelo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Modelo"/>
           </Properties>
@@ -166,7 +165,7 @@
         <Component class="javax.swing.JLabel" name="labelValor">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Valor"/>
           </Properties>
@@ -179,7 +178,7 @@
         <Component class="javax.swing.JLabel" name="labelTipo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Tipo de viatura"/>
           </Properties>
@@ -189,9 +188,9 @@
         <Component class="javax.swing.JLabel" name="labelNumBi1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Matricula da viatura"/>
+            <Property name="text" type="java.lang.String" value="Matricula"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TextFieldMatricula">
@@ -202,7 +201,7 @@
         <Component class="javax.swing.JLabel" name="labelVaga">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Vaga a ocupar"/>
           </Properties>
@@ -359,7 +358,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="303" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="ButtonSearch" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -398,9 +397,9 @@
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Bookman Old Style" size="14" style="1"/>
+                  <Font name="Bookman Old Style" size="24" style="3"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Parqueamento de viaturas com contrato"/>
+                <Property name="text" type="java.lang.String" value="Parqueamento com contrato"/>
               </Properties>
             </Component>
           </SubComponents>

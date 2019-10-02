@@ -8,6 +8,7 @@ package View;
 import com.placeholder.PlaceHolder;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -72,6 +73,11 @@ public class Login2 extends javax.swing.JFrame {
         textFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldNomeActionPerformed(evt);
+            }
+        });
+        textFieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldNomeKeyPressed(evt);
             }
         });
 
@@ -182,6 +188,12 @@ public class Login2 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void textFieldNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNomeKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            PasswordField.requestFocus();
+        }
+    }//GEN-LAST:event_textFieldNomeKeyPressed
 
     /**
      * @param args the command line arguments
