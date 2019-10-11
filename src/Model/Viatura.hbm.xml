@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Oct 2019 3:43:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Viatura" table="viatura" catalog="verdant" optimistic-lock="version">
+        <id name="matricula" type="string">
+            <column name="Matricula" length="8" />
+            <generator class="identity" />
+        </id>
+        <property name="codViatura" type="int">
+            <column name="CodViatura" not-null="true" />
+        </property>
+        <property name="codMotor" type="string">
+            <column name="CodMotor" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="codChassi" type="string">
+            <column name="CodChassi" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="fabricante" type="string">
+            <column name="Fabricante" length="10" not-null="true" />
+        </property>
+        <property name="modelo" type="string">
+            <column name="Modelo" length="10" not-null="true" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="Tipo" length="10" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="Estado" length="10" not-null="true" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="Status" not-null="true" />
+        </property>
+        <set name="parqueamentos" table="parqueamento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Matricula" length="8" not-null="true" />
+            </key>
+            <one-to-many class="Model.Parqueamento" />
+        </set>
+    </class>
+</hibernate-mapping>

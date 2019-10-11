@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Oct 2019 3:43:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Utilizador" table="utilizador" catalog="verdant" optimistic-lock="version">
+        <id name="codUtilizador" type="java.lang.Integer">
+            <column name="CodUtilizador" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="funcionario" class="Model.Funcionario" fetch="select">
+            <column name="NrBI" length="13" not-null="true" />
+        </many-to-one>
+        <property name="nomeUtilizador" type="string">
+            <column name="NomeUtilizador" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="perfil" type="string">
+            <column name="Perfil" length="20" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="Estado" not-null="true" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="Status" not-null="true" />
+        </property>
+        <set name="parqueamentos" table="parqueamento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CodUtilizador" not-null="true" />
+            </key>
+            <one-to-many class="Model.Parqueamento" />
+        </set>
+    </class>
+</hibernate-mapping>

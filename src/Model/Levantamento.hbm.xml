@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Oct 2019 3:43:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Levantamento" table="levantamento" catalog="verdant" optimistic-lock="version">
+        <id name="codLevantamento" type="java.lang.Integer">
+            <column name="CodLevantamento" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="parqueamento" class="Model.Parqueamento" fetch="select">
+            <column name="CodParqueamento" not-null="true" />
+        </many-to-one>
+        <property name="data" type="date">
+            <column name="Data" length="10" not-null="true" />
+        </property>
+        <property name="hora" type="time">
+            <column name="Hora" length="8" not-null="true" />
+        </property>
+        <property name="nomeLevantamento" type="string">
+            <column name="NomeLevantamento" length="20" not-null="true" />
+        </property>
+        <property name="preco" type="java.lang.Float">
+            <column name="Preco" precision="12" scale="6" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="Status" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 Oct 2019 3:43:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Vaga" table="vaga" catalog="verdant" optimistic-lock="version">
+        <id name="codVaga" type="java.lang.Integer">
+            <column name="CodVaga" />
+            <generator class="identity" />
+        </id>
+        <property name="categoria" type="string">
+            <column name="Categoria" length="10" not-null="true" />
+        </property>
+        <property name="descricao" type="string">
+            <column name="Descricao" length="2" not-null="true" />
+        </property>
+        <property name="valor" type="float">
+            <column name="Valor" precision="12" not-null="true" />
+        </property>
+        <property name="status" type="boolean">
+            <column name="Status" not-null="true" />
+        </property>
+        <set name="parqueamentos" table="parqueamento" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CodVaga" not-null="true" />
+            </key>
+            <one-to-many class="Model.Parqueamento" />
+        </set>
+    </class>
+</hibernate-mapping>
