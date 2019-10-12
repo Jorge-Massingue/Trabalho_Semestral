@@ -5,10 +5,16 @@
  */
 package View;
 
+import static Controller.GeralDAO.listarUtilizadores;
+import Model.Utilizadores;
 import com.placeholder.PlaceHolder;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -20,6 +26,13 @@ public class Login2 extends javax.swing.JFrame {
      * Creates new form Login2
      */
     PlaceHolder holder;
+    String nome;
+    String senha;
+    int cont;
+    java.awt.event.ActionEvent ev;
+    List<Utilizadores> utilizadores = listarUtilizadores();
+    int tamanho = utilizadores.size();
+
     public Login2() {
         initComponents();
         holder = new PlaceHolder(PasswordField, "Entre com a senha do usuario");
@@ -28,7 +41,7 @@ public class Login2 extends javax.swing.JFrame {
         holder.setFont("Bookman Old Style");
         holder.setSize(14);
         holder.setColorHolder(Color.WHITE);
-         jButton1.setFocusable(true);
+        buttonCancelar.setFocusable(true);
         setLocationRelativeTo(null);
         this.setVisible(false);
         dispose();
@@ -51,11 +64,16 @@ public class Login2 extends javax.swing.JFrame {
         textFieldNome = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         PasswordField = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        buttonEntrar = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -88,24 +106,29 @@ public class Login2 extends javax.swing.JFrame {
         PasswordField.setForeground(new java.awt.Color(255, 255, 255));
         PasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         PasswordField.setBorder(null);
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jButton2.setText("Entrar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        PasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PasswordFieldKeyPressed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jButton1.setText("Cancelar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonEntrar.setBackground(new java.awt.Color(255, 255, 255));
+        buttonEntrar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        buttonEntrar.setText("Entrar");
+        buttonEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buttonEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonEntrarActionPerformed(evt);
+            }
+        });
+
+        buttonCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        buttonCancelar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        buttonCancelar.setText("Cancelar");
+        buttonCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarActionPerformed(evt);
             }
         });
 
@@ -117,9 +140,9 @@ public class Login2 extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                        .addComponent(buttonEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(textFieldNome)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
@@ -139,8 +162,8 @@ public class Login2 extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -165,9 +188,7 @@ public class Login2 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 817, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,23 +198,64 @@ public class Login2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    Menu menu = new Menu();
     private void textFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldNomeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
+        nome = textFieldNome.getText();
+        senha = PasswordField.getText();
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        for (Utilizadores u : utilizadores) {
+            if ((nome.equals(u.getNomeUtilizador())) && (senha.equals(u.getPassword()))) {
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Seccao inciada com sucesso");
+                menu.setVisible(true);
+            } else {
+                if (cont > tamanho) {
+                    JOptionPane.showMessageDialog(null, "Senha ou nome incorrectos! Tente novamente.");
+                    textFieldNome.setText("");
+                    PasswordField.setText("");
+                    break;
+                } else {
+                    cont++;
+                }
+            }
+        }
+    }//GEN-LAST:event_buttonEntrarActionPerformed
+
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_buttonCancelarActionPerformed
 
     private void textFieldNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldNomeKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             PasswordField.requestFocus();
         }
     }//GEN-LAST:event_textFieldNomeKeyPressed
+
+    private void PasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PasswordFieldKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_V) {
+            textFieldNome.requestFocus();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            buttonEntrarActionPerformed(ev);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            buttonCancelarActionPerformed(ev);
+        }
+    }//GEN-LAST:event_PasswordFieldKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            buttonEntrarActionPerformed(ev);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            buttonCancelarActionPerformed(ev);
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
@@ -220,6 +282,12 @@ public class Login2 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+
+//        try {
+//            UIManager.setLookAndFeel(new com.jtattoo.plaf.graphite.GraphiteLookAndFeel());
+//        } catch (Exception e) {
+//
+//        }
         //</editor-fold>
 
         /* Create and display the form */
@@ -232,8 +300,8 @@ public class Login2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField PasswordField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonEntrar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -5,12 +5,20 @@
  */
 package View;
 
+import Controller.GeralDAO;
+import static Controller.GeralDAO.listarFuncionarios;
+import static Controller.GeralDAO.listarViaturas;
+import Model.Funcionarios;
+import Model.Viatura;
+import Model.Viaturas;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Almerino Buce
  */
 public class FormularioViatura extends javax.swing.JPanel {
-
+    String estado;
     /**
      * Creates new form Exemplar1
      */
@@ -27,40 +35,47 @@ public class FormularioViatura extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroupEstado = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         labelMatricula = new javax.swing.JLabel();
         textFieldMatricula = new javax.swing.JTextField();
         labelModelo = new javax.swing.JLabel();
         textFieldModelo = new javax.swing.JTextField();
         labelTipoViatura = new javax.swing.JLabel();
-        textFiledTipo = new javax.swing.JTextField();
         labelFabricante = new javax.swing.JLabel();
-        TextFieldFabricante = new javax.swing.JTextField();
+        TextFieldCor = new javax.swing.JTextField();
         labelNumChassis = new javax.swing.JLabel();
         TextFieldNumChassis = new javax.swing.JTextField();
         ButtonSalvar = new javax.swing.JButton();
         ButtonUpdate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
         ButtonList = new javax.swing.JButton();
-        TabbedPaneCliente = new javax.swing.JTabbedPane();
+        TabbedPaneViatura = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableViatura = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         ButtonSearch = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        labelCodigoMotor = new javax.swing.JLabel();
+        TextFieldCodMotor = new javax.swing.JTextField();
+        labelCor = new javax.swing.JLabel();
+        TextFieldFabricante = new javax.swing.JTextField();
+        labelEstado = new javax.swing.JLabel();
+        comboBoxTipo = new javax.swing.JComboBox();
+        radioButtonOperacional = new javax.swing.JRadioButton();
+        radioButtonAvariado = new javax.swing.JRadioButton();
 
         setPreferredSize(new java.awt.Dimension(940, 800));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1254, 798));
 
-        labelMatricula.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelMatricula.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelMatricula.setText("Matricula");
 
         textFieldMatricula.setFont(new java.awt.Font("Bookman Old Style", 0, 11)); // NOI18N
 
-        labelModelo.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelModelo.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelModelo.setText("Modelo");
 
         textFieldModelo.addActionListener(new java.awt.event.ActionListener() {
@@ -69,20 +84,14 @@ public class FormularioViatura extends javax.swing.JPanel {
             }
         });
 
-        labelTipoViatura.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelTipoViatura.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelTipoViatura.setText("Tipo");
 
-        textFiledTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFiledTipoActionPerformed(evt);
-            }
-        });
-
-        labelFabricante.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelFabricante.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelFabricante.setText("Fabricante");
 
-        labelNumChassis.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
-        labelNumChassis.setText("Numero de chassis");
+        labelNumChassis.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelNumChassis.setText("Codigo de chassi");
 
         TextFieldNumChassis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +100,12 @@ public class FormularioViatura extends javax.swing.JPanel {
         });
 
         ButtonSalvar.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Add.png"))); // NOI18N
+        ButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Add1.png"))); // NOI18N
+        ButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSalvarActionPerformed(evt);
+            }
+        });
 
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
@@ -117,19 +131,27 @@ public class FormularioViatura extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Modelo", "Tipo", "Fabricante", "Numero de chassis", "Cliente", "Estado"
+                "Matricula", "Codigo do motor", "Codigo de chassi", "Fabricante", "Modelo", "Tipo", "Cor", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(TableViatura);
 
-        TabbedPaneCliente.addTab("Tabela de Viaturas", jScrollPane2);
+        TabbedPaneViatura.addTab("Tabela de Viaturas", jScrollPane2);
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(129, 190, 234));
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Search.png"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
         jLabel3.setText("Viatura");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -141,20 +163,53 @@ public class FormularioViatura extends javax.swing.JPanel {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(49, 49, 49))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        labelCodigoMotor.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelCodigoMotor.setText("Codigo do motor");
+
+        TextFieldCodMotor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldCodMotorActionPerformed(evt);
+            }
+        });
+
+        labelCor.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelCor.setText("Cor");
+
+        labelEstado.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelEstado.setText("Estado ");
+
+        comboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo", "Sedan", "Hatchback", "SUV", "Camiao", "Camioneta", "Van", "Mini-Van", "Autocarro", "Mini-Autocarro", "Outros", " " }));
+
+        buttonGroupEstado.add(radioButtonOperacional);
+        radioButtonOperacional.setText("Operacional");
+        radioButtonOperacional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonOperacionalActionPerformed(evt);
+            }
+        });
+
+        buttonGroupEstado.add(radioButtonAvariado);
+        radioButtonAvariado.setText("Avariado");
+        radioButtonAvariado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonAvariadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,7 +219,7 @@ public class FormularioViatura extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(229, 229, 229)
+                        .addGap(220, 220, 220)
                         .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,27 +228,43 @@ public class FormularioViatura extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TabbedPaneCliente)
-                            .addComponent(labelMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldMatricula)
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(labelMatricula, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TabbedPaneViatura, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldMatricula, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCodigoMotor, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextFieldCodMotor, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelFabricante)
-                                    .addComponent(TextFieldFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(56, 56, 56)
+                                    .addComponent(labelCor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TextFieldFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(TextFieldCor, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(56, 56, 56)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textFiledTipo)
-                                    .addComponent(TextFieldNumChassis)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(labelTipoViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(labelNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 286, Short.MAX_VALUE)))))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                                            .addComponent(TextFieldNumChassis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(labelNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(labelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(radioButtonOperacional)
+                                                        .addGap(30, 30, 30)
+                                                        .addComponent(radioButtonAvariado)))
+                                                .addGap(0, 0, 0))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelTipoViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(1, 1, 1)))))))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,26 +279,42 @@ public class FormularioViatura extends javax.swing.JPanel {
                     .addComponent(labelTipoViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFiledTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextFieldFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TextFieldNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TextFieldNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TextFieldFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelCor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TextFieldCor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioButtonOperacional)
+                            .addComponent(radioButtonAvariado))))
+                .addGap(12, 12, 12)
+                .addComponent(labelCodigoMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TextFieldCodMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
+                .addGap(18, 18, 18)
+                .addComponent(TabbedPaneViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -238,13 +325,9 @@ public class FormularioViatura extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textFiledTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFiledTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFiledTipoActionPerformed
 
     private void textFieldModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldModeloActionPerformed
         // TODO add your handling code here:
@@ -255,12 +338,46 @@ public class FormularioViatura extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldNumChassisActionPerformed
 
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
-        // TODO add your handling code here:
+        for (Viaturas v : listarViaturas()) {
+            DefaultTableModel model = (DefaultTableModel) TableViatura.getModel();
+            model.addRow(new Object[]{v.getMatricula(), v.getCodMotor(), v.getCodChassi(), v.getFabricante(), v.getModelo(), v.getTipo(), v.getCor(), v.getEstado()});
+        }
     }//GEN-LAST:event_ButtonListActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonDeleteActionPerformed
+
+    private void TextFieldCodMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldCodMotorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldCodMotorActionPerformed
+
+    private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
+        Viaturas viaturas = new Viaturas();
+        GeralDAO<Viaturas> gd = new GeralDAO<>();
+        viaturas.setMatricula(textFieldMatricula.getText());
+        viaturas.setModelo(textFieldModelo.getText());
+        viaturas.setFabricante(TextFieldFabricante.getText());
+        viaturas.setCor(TextFieldCor.getText());
+        viaturas.setCodMotor(TextFieldCodMotor.getText());
+        viaturas.setTipo(comboBoxTipo.getSelectedItem().toString());
+        viaturas.setCodChassi(TextFieldNumChassis.getText());
+        viaturas.setEstado(estado);
+
+        gd.salvar(viaturas);
+//        DefaultTableModel model = (DefaultTableModel) TableViatura.getModel();
+//        model.addRow(new Object[]{textFieldMatricula.getText(), TextFieldCodMotor.getText(), TextFieldNumChassis.getText(),
+//            TextFieldFabricante.getText(), textFieldModelo.getText(), comboBoxTipo.getSelectedItem().toString(), TextFieldCor.getText(), TextFieldEstado.getText()});
+
+    }//GEN-LAST:event_ButtonSalvarActionPerformed
+
+    private void radioButtonOperacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonOperacionalActionPerformed
+        estado = "Operacional";
+    }//GEN-LAST:event_radioButtonOperacionalActionPerformed
+
+    private void radioButtonAvariadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonAvariadoActionPerformed
+        estado = "Avariado";
+    }//GEN-LAST:event_radioButtonAvariadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -269,22 +386,29 @@ public class FormularioViatura extends javax.swing.JPanel {
     private javax.swing.JButton ButtonSalvar;
     private javax.swing.JButton ButtonSearch;
     private javax.swing.JButton ButtonUpdate;
-    private javax.swing.JTabbedPane TabbedPaneCliente;
+    private javax.swing.JTabbedPane TabbedPaneViatura;
     private javax.swing.JTable TableViatura;
+    private javax.swing.JTextField TextFieldCodMotor;
+    private javax.swing.JTextField TextFieldCor;
     private javax.swing.JTextField TextFieldFabricante;
     private javax.swing.JTextField TextFieldNumChassis;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroupEstado;
+    private javax.swing.JComboBox comboBoxTipo;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelCodigoMotor;
+    private javax.swing.JLabel labelCor;
+    private javax.swing.JLabel labelEstado;
     private javax.swing.JLabel labelFabricante;
     private javax.swing.JLabel labelMatricula;
     private javax.swing.JLabel labelModelo;
     private javax.swing.JLabel labelNumChassis;
     private javax.swing.JLabel labelTipoViatura;
+    private javax.swing.JRadioButton radioButtonAvariado;
+    private javax.swing.JRadioButton radioButtonOperacional;
     private javax.swing.JTextField textFieldMatricula;
     private javax.swing.JTextField textFieldModelo;
-    private javax.swing.JTextField textFiledTipo;
     // End of variables declaration//GEN-END:variables
 }
