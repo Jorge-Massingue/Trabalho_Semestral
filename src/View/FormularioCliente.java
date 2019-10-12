@@ -5,17 +5,40 @@
  */
 package View;
 
+import Controller.GeralDAO;
+import static Controller.GeralDAO.listarClientes;
+import static Controller.GeralDAO.listarUtilizadores;
+import Model.Cliente;
+import Model.Clientes;
+import Model.Utilizadores;
+import com.placeholder.PlaceHolder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static metodos.StringToDate.converterData;
+import static metodos.StringToDate.converterLocal;
+import org.hibernate.cfg.annotations.reflection.XMLContext;
+
 /**
  *
  * @author Almerino Buce
  */
 public class FormularioCliente extends javax.swing.JPanel {
 
+    String genero;
+    String contrato;
+
     /**
      * Creates new form Exemplar1
      */
     public FormularioCliente() {
         initComponents();
+        //PlaceHolder holder = new PlaceHolder(formattedTextDataNasc, "ano/mes/dia");
+
     }
 
     /**
@@ -27,7 +50,8 @@ public class FormularioCliente extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroupGeneroCliente = new javax.swing.ButtonGroup();
+        buttonGroupContrato = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         labelNome = new javax.swing.JLabel();
         textFieldNome = new javax.swing.JTextField();
@@ -40,8 +64,7 @@ public class FormularioCliente extends javax.swing.JPanel {
         labelGenero = new javax.swing.JLabel();
         RadioButtonSexoFem = new javax.swing.JRadioButton();
         RadioButtonSexoMasc = new javax.swing.JRadioButton();
-        labelVaga = new javax.swing.JLabel();
-        ComboBoxVaga = new javax.swing.JComboBox<>();
+        labelContrato = new javax.swing.JLabel();
         ButtonSalvar = new javax.swing.JButton();
         ButtonUpdate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
@@ -54,18 +77,25 @@ public class FormularioCliente extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         ButtonSearch = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        labelDataNac = new javax.swing.JLabel();
+        RadioButtonContrato = new javax.swing.JRadioButton();
+        RadioButtonSemContrato = new javax.swing.JRadioButton();
+        ButtonImprimir = new javax.swing.JButton();
+        labelEmail = new javax.swing.JLabel();
+        textFieldEmail = new javax.swing.JTextField();
+        dateChooserDataNascimento = new com.toedter.calendar.JDateChooser();
 
         setPreferredSize(new java.awt.Dimension(940, 800));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1254, 798));
 
-        labelNome.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelNome.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelNome.setText("Nome");
 
-        textFieldNome.setFont(new java.awt.Font("Bookman Old Style", 0, 11)); // NOI18N
+        textFieldNome.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        labelContacto.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelContacto.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelContacto.setText("Contacto");
 
         textFieldContacto.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +104,7 @@ public class FormularioCliente extends javax.swing.JPanel {
             }
         });
 
-        labelNumBi.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelNumBi.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelNumBi.setText("Numero de BI");
 
         textFiledNumBi.addActionListener(new java.awt.event.ActionListener() {
@@ -83,25 +113,40 @@ public class FormularioCliente extends javax.swing.JPanel {
             }
         });
 
-        labelMorada.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelMorada.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelMorada.setText("Morada");
 
-        labelGenero.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        labelGenero.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelGenero.setText("Genero");
 
+        buttonGroupGeneroCliente.add(RadioButtonSexoFem);
         RadioButtonSexoFem.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         RadioButtonSexoFem.setText("Feminino");
+        RadioButtonSexoFem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonSexoFemActionPerformed(evt);
+            }
+        });
 
+        buttonGroupGeneroCliente.add(RadioButtonSexoMasc);
         RadioButtonSexoMasc.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         RadioButtonSexoMasc.setText("Masculino");
+        RadioButtonSexoMasc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonSexoMascActionPerformed(evt);
+            }
+        });
 
-        labelVaga.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
-        labelVaga.setText("Vaga a ocupar");
-
-        ComboBoxVaga.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        labelContrato.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelContrato.setText("Contrato");
 
         ButtonSalvar.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Add.png"))); // NOI18N
+        ButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Add1.png"))); // NOI18N
+        ButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSalvarActionPerformed(evt);
+            }
+        });
 
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
@@ -138,19 +183,27 @@ public class FormularioCliente extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Nome", "Contacto", "Morada", "BI", "Vaga", "Estado"
+                "BI", "Nome", "Genero", "Data de nascimento", "Morada", "Contacto", "Email", "Contrato"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(TableCliente);
 
-        TabbedPaneCliente.addTab("Tabela Cliente", jScrollPane2);
+        TabbedPaneCliente.addTab("Tabela de Clientes", jScrollPane2);
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(129, 190, 234));
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Search.png"))); // NOI18N
+        ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lupa.png"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
         jLabel3.setText("Cliente");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -160,81 +213,131 @@ public class FormularioCliente extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 589, Short.MAX_VALUE)
                 .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(49, 49, 49))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        labelDataNac.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelDataNac.setText("Data de nascimento");
+
+        buttonGroupContrato.add(RadioButtonContrato);
+        RadioButtonContrato.setText("Contrato");
+        RadioButtonContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonContratoActionPerformed(evt);
+            }
+        });
+
+        buttonGroupContrato.add(RadioButtonSemContrato);
+        RadioButtonSemContrato.setText("Sem contrato");
+        RadioButtonSemContrato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioButtonSemContratoActionPerformed(evt);
+            }
+        });
+
+        ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
+        ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonImprimirActionPerformed(evt);
+            }
+        });
+
+        labelEmail.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
+        labelEmail.setText("Email");
+
+        textFieldEmail.setFont(new java.awt.Font("Bookman Old Style", 0, 11)); // NOI18N
+
+        dateChooserDataNascimento.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TabbedPaneCliente)
-                    .addComponent(labelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldNome)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelMorada)
-                            .addComponent(TextFieldMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(RadioButtonSexoFem)
-                                .addGap(18, 18, 18)
-                                .addComponent(RadioButtonSexoMasc)))
-                        .addGap(56, 56, 56)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textFiledNumBi)
-                            .addComponent(ComboBoxVaga, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelNumBi, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 329, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ButtonUnable, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(801, 801, 801))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(801, 801, 801))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(textFieldNome)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(textFieldContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(labelMorada)
+                                        .addComponent(TextFieldMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(labelGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(RadioButtonSexoFem)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(RadioButtonSexoMasc))
+                                        .addComponent(labelContacto))
+                                    .addGap(56, 56, 56)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(textFiledNumBi)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(labelNumBi)
+                                                .addComponent(labelContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(labelDataNac)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(RadioButtonContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(RadioButtonSemContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(dateChooserDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(TabbedPaneCliente)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(15, 15, 15)
+                                    .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(15, 15, 15)
+                                    .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(15, 15, 15)
+                                    .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ButtonEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ButtonUnable, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(textFieldEmail))
+                            .addGap(80, 80, 80)))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelNome, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(textFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelNumBi, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -245,41 +348,53 @@ public class FormularioCliente extends javax.swing.JPanel {
                         .addGap(34, 34, 34)
                         .addComponent(labelMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TextFieldMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TextFieldMorada, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RadioButtonContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RadioButtonSemContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboBoxVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)))
                 .addGap(28, 28, 28)
-                .addComponent(labelGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadioButtonSexoFem)
-                    .addComponent(RadioButtonSexoMasc))
-                .addGap(45, 45, 45)
+                    .addComponent(labelGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelDataNac))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(RadioButtonSexoFem)
+                        .addComponent(RadioButtonSexoMasc))
+                    .addComponent(dateChooserDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonUnable, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(ButtonUnable, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void textFiledNumBiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFiledNumBiActionPerformed
         // TODO add your handling code here:
@@ -290,7 +405,10 @@ public class FormularioCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_textFieldContactoActionPerformed
 
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
-        // TODO add your handling code here:
+        for (Clientes c : listarClientes()) {
+            DefaultTableModel model = (DefaultTableModel) TableCliente.getModel();
+            model.addRow(new Object[]{c.getNrBI(), c.getNomeCompleto(), c.getSexo(), c.getDataNascimento(), c.getMorada(), c.getContacto(), c.getEmail(), c.getContrato()});
+        }
     }//GEN-LAST:event_ButtonListActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
@@ -301,33 +419,78 @@ public class FormularioCliente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonUnableActionPerformed
 
+    private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonImprimirActionPerformed
+
+    private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
+        Clientes clientes = new Clientes();
+        GeralDAO<Clientes> dao = new GeralDAO<>();
+        clientes.setNomeCompleto(textFieldNome.getText());
+        clientes.setContacto(textFieldContacto.getText());
+        clientes.setMorada(TextFieldMorada.getText());
+        clientes.setSexo(genero);
+        clientes.setNrBI(textFiledNumBi.getText());
+        clientes.setContrato(contrato);
+//       clientes.setDataNascimento(converterData(dateChooserDataNascimento.getDate()));
+        clientes.setEmail(textFieldEmail.getText());
+        dao.salvar(clientes);
+        for (Clientes c : listarClientes()) {
+            DefaultTableModel model = (DefaultTableModel) TableCliente.getModel();
+            model.addRow(new Object[]{c.getNrBI(), c.getNomeCompleto(), c.getSexo(), c.getDataNascimento(), c.getMorada(), c.getContacto(), c.getEmail(), c.getContrato()});
+        }
+    }//GEN-LAST:event_ButtonSalvarActionPerformed
+
+    private void RadioButtonSexoFemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonSexoFemActionPerformed
+        genero = "Feminino";
+    }//GEN-LAST:event_RadioButtonSexoFemActionPerformed
+
+    private void RadioButtonSexoMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonSexoMascActionPerformed
+        genero = "Masculino";
+    }//GEN-LAST:event_RadioButtonSexoMascActionPerformed
+
+    private void RadioButtonContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonContratoActionPerformed
+        contrato = "Com contrato";
+    }//GEN-LAST:event_RadioButtonContratoActionPerformed
+
+    private void RadioButtonSemContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonSemContratoActionPerformed
+        contrato = "Sem contrato";
+    }//GEN-LAST:event_RadioButtonSemContratoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonDelete;
     private javax.swing.JButton ButtonEnable;
+    private javax.swing.JButton ButtonImprimir;
     private javax.swing.JButton ButtonList;
     private javax.swing.JButton ButtonSalvar;
     private javax.swing.JButton ButtonSearch;
     private javax.swing.JButton ButtonUnable;
     private javax.swing.JButton ButtonUpdate;
-    private javax.swing.JComboBox<String> ComboBoxVaga;
+    private javax.swing.JRadioButton RadioButtonContrato;
+    private javax.swing.JRadioButton RadioButtonSemContrato;
     private javax.swing.JRadioButton RadioButtonSexoFem;
     private javax.swing.JRadioButton RadioButtonSexoMasc;
     private javax.swing.JTabbedPane TabbedPaneCliente;
     private javax.swing.JTable TableCliente;
     private javax.swing.JTextField TextFieldMorada;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroupContrato;
+    private javax.swing.ButtonGroup buttonGroupGeneroCliente;
+    private com.toedter.calendar.JDateChooser dateChooserDataNascimento;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelContacto;
+    private javax.swing.JLabel labelContrato;
+    private javax.swing.JLabel labelDataNac;
+    private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelGenero;
     private javax.swing.JLabel labelMorada;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelNumBi;
-    private javax.swing.JLabel labelVaga;
     private javax.swing.JTextField textFieldContacto;
+    private javax.swing.JTextField textFieldEmail;
     private javax.swing.JTextField textFieldNome;
     private javax.swing.JTextField textFiledNumBi;
     // End of variables declaration//GEN-END:variables

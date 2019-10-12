@@ -2,7 +2,9 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupGeneroCliente">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroupContrato">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -25,12 +27,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="940" max="32767" attributes="0"/>
+          <Component id="jPanel1" min="-2" pref="900" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="811" max="32767" attributes="0"/>
+          <Component id="jPanel1" pref="805" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -48,56 +50,79 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="TabbedPaneCliente" max="32767" attributes="0"/>
-                      <Component id="labelNome" min="-2" pref="87" max="-2" attributes="0"/>
-                      <Component id="textFieldNome" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelContacto" min="-2" pref="67" max="-2" attributes="0"/>
-                              <Component id="textFieldContacto" min="-2" pref="352" max="-2" attributes="0"/>
-                              <Component id="labelMorada" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="TextFieldMorada" alignment="0" min="-2" pref="352" max="-2" attributes="0"/>
-                              <Component id="labelGenero" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="RadioButtonSexoFem" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="RadioButtonSexoMasc" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="labelNome" min="-2" pref="87" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="801" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelEmail" min="-2" pref="87" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="801" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textFiledNumBi" max="32767" attributes="0"/>
-                              <Component id="ComboBoxVaga" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labelNumBi" min="-2" pref="106" max="-2" attributes="0"/>
-                                      <Component id="labelVaga" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="textFieldNome" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="textFieldContacto" min="-2" pref="352" max="-2" attributes="0"/>
+                                          <Component id="labelMorada" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="TextFieldMorada" alignment="0" min="-2" pref="352" max="-2" attributes="0"/>
+                                          <Component id="labelGenero" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="RadioButtonSexoFem" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="RadioButtonSexoMasc" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="labelContacto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="textFiledNumBi" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="labelNumBi" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelContrato" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
+                                                  <Component id="labelDataNac" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="RadioButtonContrato" min="-2" pref="84" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="RadioButtonSemContrato" min="-2" pref="109" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="dateChooserDataNascimento" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="329" max="32767" attributes="0"/>
+                                  <Component id="TabbedPaneCliente" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="ButtonSalvar" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                      <Component id="ButtonUpdate" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                      <Component id="ButtonDelete" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                      <Component id="ButtonList" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="ButtonImprimir" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="ButtonEnable" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="ButtonUnable" min="-2" pref="98" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="textFieldEmail" alignment="0" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="123" max="32767" attributes="0"/>
-                  <Component id="ButtonSalvar" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="ButtonUpdate" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="ButtonDelete" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="ButtonList" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="ButtonEnable" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="ButtonUnable" min="-2" pref="98" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -105,13 +130,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="labelNome" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textFieldNome" min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="textFieldNome" min="-2" pref="31" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelNumBi" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="labelContacto" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
@@ -124,22 +149,35 @@
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="labelMorada" min="-2" pref="26" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="TextFieldMorada" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="TextFieldMorada" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="RadioButtonContrato" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="RadioButtonSemContrato" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="labelVaga" min="-2" pref="26" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="ComboBoxVaga" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="labelContrato" min="-2" pref="26" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="labelGenero" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="RadioButtonSexoFem" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="RadioButtonSexoMasc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelGenero" alignment="3" max="32767" attributes="0"/>
+                      <Component id="labelDataNac" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="RadioButtonSexoFem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="RadioButtonSexoMasc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="dateChooserDataNascimento" min="-2" pref="25" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <Component id="labelEmail" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="textFieldEmail" min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="ButtonSalvar" min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="ButtonUpdate" min="-2" pref="52" max="-2" attributes="0"/>
@@ -147,10 +185,11 @@
                       <Component id="ButtonList" min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="ButtonEnable" min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="ButtonUnable" min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="ButtonImprimir" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Component id="TabbedPaneCliente" min="-2" pref="204" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -159,7 +198,7 @@
         <Component class="javax.swing.JLabel" name="labelNome">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
@@ -167,14 +206,14 @@
         <Component class="javax.swing.JTextField" name="textFieldNome">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="11" style="0"/>
+              <Font name="Bookman Old Style" size="14" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelContacto">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Contacto"/>
           </Properties>
@@ -187,7 +226,7 @@
         <Component class="javax.swing.JLabel" name="labelNumBi">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Numero de BI"/>
           </Properties>
@@ -200,7 +239,7 @@
         <Component class="javax.swing.JLabel" name="labelMorada">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Morada"/>
           </Properties>
@@ -210,49 +249,46 @@
         <Component class="javax.swing.JLabel" name="labelGenero">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Genero"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="RadioButtonSexoFem">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroupGeneroCliente"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Bookman Old Style" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Feminino"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButtonSexoFemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="RadioButtonSexoMasc">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroupGeneroCliente"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Bookman Old Style" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Masculino"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButtonSexoMascActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelVaga">
+        <Component class="javax.swing.JLabel" name="labelContrato">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="12" style="1"/>
+              <Font name="Bookman Old Style" size="16" style="3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vaga a ocupar"/>
+            <Property name="text" type="java.lang.String" value="Contrato"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="ComboBoxVaga">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonSalvar">
           <Properties>
@@ -260,9 +296,12 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagens/Add.png"/>
+              <Image iconType="3" name="/Imagens/Add1.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonSalvarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonUpdate">
           <Properties>
@@ -333,8 +372,8 @@
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Tabela Cliente">
-                    <Property name="tabTitle" type="java.lang.String" value="Tabela Cliente"/>
+                  <JTabbedPaneConstraints tabName="Tabela de Clientes">
+                    <Property name="tabTitle" type="java.lang.String" value="Tabela de Clientes"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -344,18 +383,24 @@
                 <Component class="javax.swing.JTable" name="TableCliente">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="0">
-                        <Column editable="true" title="ID" type="java.lang.Object"/>
-                        <Column editable="true" title="Nome" type="java.lang.Object"/>
-                        <Column editable="true" title="Contacto" type="java.lang.Object"/>
-                        <Column editable="true" title="Morada" type="java.lang.Object"/>
+                      <Table columnCount="8" rowCount="0">
                         <Column editable="true" title="BI" type="java.lang.Object"/>
-                        <Column editable="true" title="Vaga" type="java.lang.Object"/>
-                        <Column editable="true" title="Estado" type="java.lang.Object"/>
+                        <Column editable="true" title="Nome" type="java.lang.Object"/>
+                        <Column editable="true" title="Genero" type="java.lang.Object"/>
+                        <Column editable="true" title="Data de nascimento" type="java.lang.Object"/>
+                        <Column editable="true" title="Morada" type="java.lang.Object"/>
+                        <Column editable="true" title="Contacto" type="java.lang.Object"/>
+                        <Column editable="false" title="Email" type="java.lang.Object"/>
+                        <Column editable="true" title="Contrato" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -405,7 +450,7 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="99" red="99" type="rgb"/>
+              <Color blue="ea" green="be" red="81" type="rgb"/>
             </Property>
           </Properties>
 
@@ -415,9 +460,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="150" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="589" max="32767" attributes="0"/>
                       <Component id="ButtonSearch" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -426,12 +471,12 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ButtonSearch" min="-2" pref="41" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Component id="jLabel3" min="-2" pref="23" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ButtonSearch" min="-2" pref="52" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -446,20 +491,83 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Imagens/Search.png"/>
+                  <Image iconType="3" name="/Imagens/lupa.png"/>
                 </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Bookman Old Style" size="14" style="1"/>
+                  <Font name="Bookman Old Style" size="24" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cliente"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="labelDataNac">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="16" style="3"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Data de nascimento"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="RadioButtonContrato">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroupContrato"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Contrato"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButtonContratoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="RadioButtonSemContrato">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroupContrato"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sem contrato"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RadioButtonSemContratoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="ButtonImprimir">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Imagens/Print.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonImprimirActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelEmail">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="16" style="3"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Email"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="textFieldEmail">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="11" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserDataNascimento">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
