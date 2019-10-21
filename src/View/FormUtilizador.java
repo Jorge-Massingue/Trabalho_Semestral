@@ -8,12 +8,14 @@ package View;
 import Controller.GeralDAO;
 import static Controller.GeralDAO.listarFuncionarios;
 import static Controller.GeralDAO.listarUtilizadores;
-import Model.Funcionario;
+import static Controller.GeralDAO.pesquisarUtilizadores;
+import Controller.OutrasOperacoesDao;
 import Model.Funcionarios;
-import Model.Utilizador;
 import Model.Utilizadores;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import metodos.Tabela;
 
 /**
  *
@@ -21,20 +23,45 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormUtilizador extends javax.swing.JPanel {
 
-    public void getCodFuncionario(JComboBox comboBox) {
-        comboBox.addItem("");
-        for (Funcionarios f : listarFuncionarios()) {
-            comboBox.addItem(f.getNrBI());
+    Tabela tabela = new Tabela();
+
+    public void limparCampos() {
+        cbBI.setSelectedItem("");
+        tfNome.setText("");
+        textFieldPassword.setText("");
+        buttonGroup1.clearSelection();
+    }
+
+    public void listar() {
+        for (Utilizadores u : listarUtilizadores()) {
+            if (u.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableUtilizadores.getModel();
+                model.addRow(new Object[]{u.getCodUtilizador(), u.getNrBI(), u.getNomeUtilizador(), u.getPassword(), u.getPerfil(), u.getEstado()});
+            }
         }
     }
-    String perfil;
+
+//    public void getCodFuncionario(JComboBox comboBox) {
+//        comboBox.addItem("");
+//        for (Funcionarios f : listarFuncionarios()) {
+//            if (f.getStatus().equalsIgnoreCase("True")) {
+//                comboBox.addItem(f.getNrBI());
+//            }
+//        }
+//    }
+    int cod;
+    String perfil, estado;
+    Utilizadores user = new Utilizadores();
+    GeralDAO<Utilizadores> dao = new GeralDAO<>();
+      OutrasOperacoesDao o = new OutrasOperacoesDao();
 
     /**
      * Creates new form Exemplar1
      */
     public FormUtilizador() {
         initComponents();
-        getCodFuncionario(cbBI);
+//        getCodFuncionario(cbBI);
+        o.listarFuncionariosParaUtilizadores(cbBI);
     }
 
     /**
@@ -78,10 +105,15 @@ public class FormUtilizador extends javax.swing.JPanel {
         jpTitulo.setBackground(new java.awt.Color(129, 190, 234));
 
         jlTitulo.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
-        jlTitulo.setText("Utlizador");
+        jlTitulo.setText("Utilizador");
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Search.png"))); // NOI18N
+        ButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpTituloLayout = new javax.swing.GroupLayout(jpTitulo);
         jpTitulo.setLayout(jpTituloLayout);
@@ -155,6 +187,11 @@ public class FormUtilizador extends javax.swing.JPanel {
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
         ButtonUpdate.setToolTipText("Actualizar");
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
 
         ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         ButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Delete.png"))); // NOI18N
@@ -197,15 +234,20 @@ public class FormUtilizador extends javax.swing.JPanel {
 
             },
             new String [] {
-                "BI", "Nome do utilizador", "Palavra Passe", "Perfil", "Estado"
+                "Codigo", "BI", "Nome do utilizador", "Palavra Passe", "Perfil", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        TableUtilizadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableUtilizadoresMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(TableUtilizadores);
@@ -229,6 +271,7 @@ public class FormUtilizador extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbBI, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlNome, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -237,9 +280,7 @@ public class FormUtilizador extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jlBI, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbBI, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(515, 515, 515))
+                                .addGap(791, 791, 791))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -273,11 +314,11 @@ public class FormUtilizador extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jpTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbBI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlBI, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(32, 32, 32)
+                .addComponent(jlBI, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbBI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jlNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,7 +342,7 @@ public class FormUtilizador extends javax.swing.JPanel {
                     .addComponent(ButtonImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(51, 51, 51)
                 .addComponent(TabbedPaneUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -329,20 +370,50 @@ public class FormUtilizador extends javax.swing.JPanel {
     }//GEN-LAST:event_rbtnOperadorActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        cbBI.setEnabled(true);
+        int opcao = (JOptionPane.showConfirmDialog(this, "Tem Certeza de que pretende Apagar o"
+                + " Registo?", "Apagando Registo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        if (opcao == 0) {
+            user.setCodUtilizador(cod);
+            user.setNrBI(cbBI.getSelectedItem().toString());
+            user.setNomeUtilizador(tfNome.getText());
+            user.setPassword(textFieldPassword.getText());
+            user.setPerfil(perfil);
+            user.setEstado(estado);
+            user.setStatus("False");
+            dao.editar(user);
+            tabela.limpaJtable(TableUtilizadores);
+            listar();
+        }
+        limparCampos();
+        o.listarFuncionariosParaUtilizadores(cbBI);
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
-
-        for (Utilizadores u : listarUtilizadores()) {
-            DefaultTableModel model = (DefaultTableModel) TableUtilizadores.getModel();
-            model.addRow(new Object[]{u.getNrBI(), u.getNomeUtilizador(), u.getPassword(), u.getPerfil(), u.getEstado()});
-        }
-
+        cbBI.setEnabled(true);
+        tabela.limpaJtable(TableUtilizadores);
+        listar();
+        limparCampos();
     }//GEN-LAST:event_ButtonListActionPerformed
 
     private void ButtonUnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUnableActionPerformed
-        // TODO add your handling code here:
+        cbBI.setEnabled(true);
+        if (estado.equalsIgnoreCase("Inactivo")) {
+            JOptionPane.showMessageDialog(null, "Este utilizador Já se encontra Inactivo!");
+        } else if (estado.equalsIgnoreCase("Activo")) {
+            user.setCodUtilizador(cod);
+            user.setNrBI(cbBI.getSelectedItem().toString());
+            user.setNomeUtilizador(tfNome.getText());
+            user.setPassword(textFieldPassword.getText());
+            user.setPerfil(perfil);
+            user.setEstado("Inactivo");
+            user.setStatus("True");
+            dao.editar(user);
+            tabela.limpaJtable(TableUtilizadores);
+            listar();
+            JOptionPane.showMessageDialog(null, "Utilizador Desactivado com Sucesso!");
+        }
+        limparCampos();
     }//GEN-LAST:event_ButtonUnableActionPerformed
 
     private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
@@ -350,25 +421,85 @@ public class FormUtilizador extends javax.swing.JPanel {
     }//GEN-LAST:event_ButtonImprimirActionPerformed
 
     private void ButtonEnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEnableActionPerformed
-        // TODO add your handling code here:
+        cbBI.setEnabled(true);
+        if (estado.equalsIgnoreCase("Activo")) {
+            JOptionPane.showMessageDialog(null, "Este Utilizador Já se encontra activo!");
+        } else if (estado.equalsIgnoreCase("Inactivo")) {
+            user.setCodUtilizador(cod);
+            user.setNrBI(cbBI.getSelectedItem().toString());
+            user.setNomeUtilizador(tfNome.getText());
+            user.setPassword(textFieldPassword.getText());
+            user.setPerfil(perfil);
+            user.setEstado("Activo");
+            user.setStatus("True");
+            dao.editar(user);
+            tabela.limpaJtable(TableUtilizadores);
+            listar();
+            JOptionPane.showMessageDialog(null, "Utilizador Activado com Sucesso!");
+        }
+        limparCampos();
     }//GEN-LAST:event_ButtonEnableActionPerformed
 
     private void ButtomSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtomSalvarActionPerformed
-        Utilizadores user = new Utilizadores();
-        GeralDAO<Utilizadores> dao = new GeralDAO<>();
-
+        cbBI.setEnabled(true);
         user.setNomeUtilizador(tfNome.getText());
         user.setPassword(textFieldPassword.getText());
         user.setPerfil(perfil);
         user.setEstado("Activo");
+        user.setStatus("True");
         user.setNrBI(cbBI.getSelectedItem().toString());
         dao.salvar(user);
-        for (Utilizadores u : listarUtilizadores()) {
-            DefaultTableModel model = (DefaultTableModel) TableUtilizadores.getModel();
-            model.addRow(new Object[]{u.getNrBI(), u.getNomeUtilizador(), u.getPassword(), u.getPerfil(), u.getEstado()});
-        }
-
+        tabela.limpaJtable(TableUtilizadores);
+        listar();
+        limparCampos();
+        o.listarFuncionariosParaUtilizadores(cbBI);
     }//GEN-LAST:event_ButtomSalvarActionPerformed
+
+    private void TableUtilizadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableUtilizadoresMouseClicked
+        buttonGroup1.clearSelection();
+        cbBI.setSelectedItem((String) TableUtilizadores.getValueAt(TableUtilizadores.getSelectedRow(), 1));
+        tfNome.setText((String) TableUtilizadores.getValueAt(TableUtilizadores.getSelectedRow(), 2));
+        textFieldPassword.setText((String) TableUtilizadores.getValueAt(TableUtilizadores.getSelectedRow(), 3));
+        String nivel = ((String) TableUtilizadores.getValueAt(TableUtilizadores.getSelectedRow(), 4));
+        if (nivel.equalsIgnoreCase("Administrador")) {
+            rbtnAdmini.setSelected(true);
+            perfil = "Administrador";
+        } else if (nivel.equalsIgnoreCase("Operador")) {
+            rbtnOperador.setSelected(true);
+            perfil = "Operador";
+        }
+        estado = ((String) TableUtilizadores.getValueAt(TableUtilizadores.getSelectedRow(), 5));
+        cod = Integer.parseInt(String.valueOf(TableUtilizadores.getValueAt(TableUtilizadores.getSelectedRow(), 0)));
+        cbBI.setEnabled(false);
+    }//GEN-LAST:event_TableUtilizadoresMouseClicked
+
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        cbBI.setEnabled(true);
+        user.setCodUtilizador(cod);
+        user.setNrBI(cbBI.getSelectedItem().toString());
+        user.setNomeUtilizador(tfNome.getText());
+        user.setPassword(textFieldPassword.getText());
+        user.setPerfil(perfil);
+        user.setEstado(estado);
+        user.setStatus("True");
+        dao.editar(user);
+        tabela.limpaJtable(TableUtilizadores);
+        listar();
+        limparCampos();
+
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void ButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
+        tabela.limpaJtable(TableUtilizadores);
+        for (Utilizadores u : pesquisarUtilizadores(tfNome.getText())) {
+            if (u.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableUtilizadores.getModel();
+                model.addRow(new Object[]{u.getCodUtilizador(), u.getNrBI(), u.getNomeUtilizador(), u.getPassword(), u.getPerfil(), u.getEstado()});
+            }
+        }
+        limparCampos();
+
+    }//GEN-LAST:event_ButtonSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

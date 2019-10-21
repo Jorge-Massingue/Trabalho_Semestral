@@ -7,12 +7,17 @@ package View;
 
 import Controller.GeralDAO;
 import static Controller.GeralDAO.listarFuncionarios;
+import static Controller.GeralDAO.pesquisarFuncionarios;
+import Controller.OutrasOperacoesDao;
 import Model.Funcionarios;
 import com.placeholder.PlaceHolder;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static metodos.StringToDate.*;
 import metodos.Tabela;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -25,12 +30,10 @@ public class FormFuncionario extends javax.swing.JPanel {
     String genero, estado;
     Funcionarios func = new Funcionarios();
     GeralDAO<Funcionarios> dao = new GeralDAO<>();
+    OutrasOperacoesDao o = new OutrasOperacoesDao();
     //  DateFormat = new SimpleDateFormat("");
     Tabela tabela = new Tabela();
 
-    /**
-     * Creates new form Exemplar1
-     */
     public void desabilitarCampos() {
         tfNome.setEnabled(false);
         tfBI.setEnabled(false);
@@ -132,6 +135,11 @@ public class FormFuncionario extends javax.swing.JPanel {
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Search.png"))); // NOI18N
+        ButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpTituloLayout = new javax.swing.GroupLayout(jpTitulo);
         jpTitulo.setLayout(jpTituloLayout);
@@ -602,7 +610,7 @@ public class FormFuncionario extends javax.swing.JPanel {
 
         }
         limparCampos();
-        
+
     }//GEN-LAST:event_ButtonUnableActionPerformed
 
     private void tfContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfContactoActionPerformed
@@ -610,8 +618,9 @@ public class FormFuncionario extends javax.swing.JPanel {
     }//GEN-LAST:event_tfContactoActionPerformed
 
     private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
-        HabilitarCampos();
-        limparCampos();
+//        HabilitarCampos();
+//        o.imprimir("G:\\UEM\\NÍVEL II\\SEMESTRE II\\POO\\Trabe_Semestral_POO\\relatorios\\RelatorioFuncionario.jasper");
+//        limparCampos();
     }//GEN-LAST:event_ButtonImprimirActionPerformed
 
     private void ButtomSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtomSalvarActionPerformed
@@ -626,7 +635,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         func.setContacto(tfContacto.getText());
         func.setEmail(textFieldEmail.getText());
         func.setEstado("Activo");
-        func.setEstado("True");
+        func.setStatus("True");
         dao.salvar(func);
         tabela.limpaJtable(TableFuncionario);
         for (Funcionarios f : listarFuncionarios()) {
@@ -641,7 +650,6 @@ public class FormFuncionario extends javax.swing.JPanel {
 
     private void TableFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableFuncionarioMouseClicked
         tbnGrupoGenero.clearSelection();
-
         tfBI.setText((String) TableFuncionario.getValueAt(TableFuncionario.getSelectedRow(), 1));
         tfNome.setText((String) TableFuncionario.getValueAt(TableFuncionario.getSelectedRow(), 2));
         String sexo = ((String) TableFuncionario.getValueAt(TableFuncionario.getSelectedRow(), 3));
@@ -718,6 +726,17 @@ public class FormFuncionario extends javax.swing.JPanel {
         }
         limparCampos();
     }//GEN-LAST:event_ButtonEnableActionPerformed
+
+    private void ButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
+        tabela.limpaJtable(TableFuncionario);
+        for (Funcionarios f : pesquisarFuncionarios(tfNome.getText())) {
+            if (f.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableFuncionario.getModel();
+                model.addRow(new Object[]{f.getCodFuncionario(), f.getNrBI(), f.getNomeCompleto(), f.getSexo(), f.getDataNascimento(), f.getMorada(), f.getContacto(), f.getEmail(), f.getDepartamento(), f.getCargo(), f.getEstado()});
+            }
+        }
+        limparCampos();
+    }//GEN-LAST:event_ButtonSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

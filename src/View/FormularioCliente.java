@@ -7,9 +7,13 @@ package View;
 
 import Controller.GeralDAO;
 import static Controller.GeralDAO.listarClientes;
+import static Controller.GeralDAO.listarFuncionarios;
 import static Controller.GeralDAO.listarUtilizadores;
+import static Controller.GeralDAO.pesquisarClientes;
+import static Controller.GeralDAO.pesquisarFuncionarios;
 import Model.Cliente;
 import Model.Clientes;
+import Model.Funcionarios;
 import Model.Utilizadores;
 import com.placeholder.PlaceHolder;
 import java.text.ParseException;
@@ -21,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static metodos.StringToDate.converterData;
 import static metodos.StringToDate.converterLocal;
+import static metodos.StringToDate.converterString;
+import metodos.Tabela;
 import org.hibernate.cfg.annotations.reflection.XMLContext;
 
 /**
@@ -29,12 +35,49 @@ import org.hibernate.cfg.annotations.reflection.XMLContext;
  */
 public class FormularioCliente extends javax.swing.JPanel {
 
+    int cod;
     String genero;
     String contrato;
+    Clientes clientes = new Clientes();
+    GeralDAO<Clientes> dao = new GeralDAO<>();
+    Tabela tabela = new Tabela();
 
-    /**
-     * Creates new form Exemplar1
-     */
+    public void listar() {
+        for (Clientes c : listarClientes()) {
+            if (c.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableCliente.getModel();
+                model.addRow(new Object[]{c.getCodCliente(), c.getNrBI(), c.getNomeCompleto(), c.getSexo(), c.getDataNascimento(), c.getMorada(), c.getContacto(), c.getEmail(), c.getContrato()});
+            }
+        }
+    }
+
+    public void desabilitarCampos() {
+        textFieldNome.setEnabled(false);
+        textFiledNumBi.setEnabled(false);
+        RadioButtonSexoFem.setEnabled(false);
+        RadioButtonSexoMasc.setEnabled(false);
+        dateChooserDataNascimento.setEnabled(false);
+    }
+
+    public void HabilitarCampos() {
+        textFieldNome.setEnabled(true);
+        textFiledNumBi.setEnabled(true);
+        RadioButtonSexoFem.setEnabled(true);
+        RadioButtonSexoMasc.setEnabled(true);
+        dateChooserDataNascimento.setEnabled(true);
+    }
+
+    public void limparCampos() {
+        textFieldNome.setText("");
+        textFieldContacto.setText("");
+        TextFieldMorada.setText("");
+        buttonGroupGeneroCliente.clearSelection();
+        textFieldEmail.setText("");
+        textFiledNumBi.setText("");
+        buttonGroupContrato.clearSelection();
+        dateChooserDataNascimento.setDate(converterString(""));
+    }
+
     public FormularioCliente() {
         initComponents();
         //PlaceHolder holder = new PlaceHolder(formattedTextDataNasc, "ano/mes/dia");
@@ -69,8 +112,6 @@ public class FormularioCliente extends javax.swing.JPanel {
         ButtonUpdate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
         ButtonList = new javax.swing.JButton();
-        ButtonEnable = new javax.swing.JButton();
-        ButtonUnable = new javax.swing.JButton();
         TabbedPaneCliente = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableCliente = new javax.swing.JTable();
@@ -150,6 +191,11 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
 
         ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         ButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Delete.png"))); // NOI18N
@@ -167,31 +213,25 @@ public class FormularioCliente extends javax.swing.JPanel {
             }
         });
 
-        ButtonEnable.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonEnable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Enable.png"))); // NOI18N
-
-        ButtonUnable.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonUnable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Unable.png"))); // NOI18N
-        ButtonUnable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonUnableActionPerformed(evt);
-            }
-        });
-
         TableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "BI", "Nome", "Genero", "Data de nascimento", "Morada", "Contacto", "Email", "Contrato"
+                "Codigo", "BI", "Nome", "Genero", "Data de nascimento", "Morada", "Contacto", "Email", "Contrato"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, false, true
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        TableCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableClienteMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(TableCliente);
@@ -202,6 +242,11 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lupa.png"))); // NOI18N
+        ButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSearchActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
         jLabel3.setText("Cliente");
@@ -315,12 +360,9 @@ public class FormularioCliente extends javax.swing.JPanel {
                                     .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(15, 15, 15)
                                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ButtonEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ButtonUnable, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(textFieldEmail))
                             .addGap(80, 80, 80)))))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -375,8 +417,6 @@ public class FormularioCliente extends javax.swing.JPanel {
                     .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonEnable, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonUnable, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -405,40 +445,53 @@ public class FormularioCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_textFieldContactoActionPerformed
 
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
-        for (Clientes c : listarClientes()) {
-            DefaultTableModel model = (DefaultTableModel) TableCliente.getModel();
-            model.addRow(new Object[]{c.getNrBI(), c.getNomeCompleto(), c.getSexo(), c.getDataNascimento(), c.getMorada(), c.getContacto(), c.getEmail(), c.getContrato()});
-        }
+        HabilitarCampos();
+        tabela.limpaJtable(TableCliente);
+        listar();
+        limparCampos();
     }//GEN-LAST:event_ButtonListActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        HabilitarCampos();
+        int opcao = (JOptionPane.showConfirmDialog(this, "Tem Certeza de que pretende Apagar o"
+                + " Registo?", "Apagando Registo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        if (opcao == 0) {
+            clientes.setCodCliente(cod);
+            clientes.setNomeCompleto(textFieldNome.getText());
+            clientes.setContacto(textFieldContacto.getText());
+            clientes.setMorada(TextFieldMorada.getText());
+            clientes.setSexo(genero);
+            clientes.setNrBI(textFiledNumBi.getText());
+            clientes.setContrato(contrato);
+            clientes.setDataNascimento(converterData(dateChooserDataNascimento.getDate()));
+            clientes.setEmail(textFieldEmail.getText());
+            clientes.setStatus("False");
+            dao.editar(clientes);
+            tabela.limpaJtable(TableCliente);
+            listar();
+        }
+        limparCampos();
     }//GEN-LAST:event_ButtonDeleteActionPerformed
-
-    private void ButtonUnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUnableActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonUnableActionPerformed
 
     private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonImprimirActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
-        Clientes clientes = new Clientes();
-        GeralDAO<Clientes> dao = new GeralDAO<>();
+        HabilitarCampos();
         clientes.setNomeCompleto(textFieldNome.getText());
         clientes.setContacto(textFieldContacto.getText());
         clientes.setMorada(TextFieldMorada.getText());
         clientes.setSexo(genero);
         clientes.setNrBI(textFiledNumBi.getText());
         clientes.setContrato(contrato);
-//       clientes.setDataNascimento(converterData(dateChooserDataNascimento.getDate()));
+        clientes.setDataNascimento(converterData(dateChooserDataNascimento.getDate()));
         clientes.setEmail(textFieldEmail.getText());
+        clientes.setStatus("True");
         dao.salvar(clientes);
-        for (Clientes c : listarClientes()) {
-            DefaultTableModel model = (DefaultTableModel) TableCliente.getModel();
-            model.addRow(new Object[]{c.getNrBI(), c.getNomeCompleto(), c.getSexo(), c.getDataNascimento(), c.getMorada(), c.getContacto(), c.getEmail(), c.getContrato()});
-        }
+        tabela.limpaJtable(TableCliente);
+        listar();
+        limparCampos();
     }//GEN-LAST:event_ButtonSalvarActionPerformed
 
     private void RadioButtonSexoFemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonSexoFemActionPerformed
@@ -450,22 +503,79 @@ public class FormularioCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_RadioButtonSexoMascActionPerformed
 
     private void RadioButtonContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonContratoActionPerformed
-        contrato = "Com contrato";
+        contrato = "Activo";
     }//GEN-LAST:event_RadioButtonContratoActionPerformed
 
     private void RadioButtonSemContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioButtonSemContratoActionPerformed
-        contrato = "Sem contrato";
+        contrato = "Inactivo";
     }//GEN-LAST:event_RadioButtonSemContratoActionPerformed
+
+    private void TableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableClienteMouseClicked
+        buttonGroupGeneroCliente.clearSelection();
+        buttonGroupContrato.clearSelection();
+        textFiledNumBi.setText((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 1));
+        textFieldNome.setText((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 2));
+        String sexo = ((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 3));
+        if (sexo.equalsIgnoreCase("Feminino")) {
+            RadioButtonSexoFem.setSelected(true);
+            genero = "Feminino";
+        } else if (sexo.equalsIgnoreCase("Masculino")) {
+            RadioButtonSexoMasc.setSelected(true);
+            genero = "Masculino";
+        }
+        String contratoh = ((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 8));
+        if (contratoh.equalsIgnoreCase("Activo")) {
+            RadioButtonContrato.setSelected(true);
+            contrato = "Activo";
+        } else if (contratoh.equalsIgnoreCase("Inactivo")) {
+            RadioButtonSemContrato.setSelected(true);
+            contrato = "Inactivo";
+        }
+        dateChooserDataNascimento.setDate(converterString((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 4)));
+        TextFieldMorada.setText((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 5));
+        textFieldContacto.setText((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 6));
+        textFieldEmail.setText((String) TableCliente.getValueAt(TableCliente.getSelectedRow(), 7));
+        cod = Integer.parseInt(String.valueOf(TableCliente.getValueAt(TableCliente.getSelectedRow(), 0)));
+        desabilitarCampos();
+    }//GEN-LAST:event_TableClienteMouseClicked
+
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        HabilitarCampos();
+        clientes.setCodCliente(cod);
+        clientes.setNomeCompleto(textFieldNome.getText());
+        clientes.setContacto(textFieldContacto.getText());
+        clientes.setMorada(TextFieldMorada.getText());
+        clientes.setSexo(genero);
+        clientes.setNrBI(textFiledNumBi.getText());
+        clientes.setContrato(contrato);
+        clientes.setDataNascimento(converterData(dateChooserDataNascimento.getDate()));
+        clientes.setEmail(textFieldEmail.getText());
+        clientes.setStatus("True");
+        dao.editar(clientes);
+        tabela.limpaJtable(TableCliente);
+        listar();
+        limparCampos();
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void ButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
+        tabela.limpaJtable(TableCliente);
+        for (Clientes c : pesquisarClientes(textFieldNome.getText())) {
+            if (c.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableCliente.getModel();
+                model.addRow(new Object[]{c.getCodCliente(), c.getNrBI(), c.getNomeCompleto(), c.getSexo(), c.getDataNascimento(), c.getMorada(), c.getContacto(), c.getEmail(), c.getContrato()});
+            }
+        }
+        limparCampos();
+
+    }//GEN-LAST:event_ButtonSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonDelete;
-    private javax.swing.JButton ButtonEnable;
     private javax.swing.JButton ButtonImprimir;
     private javax.swing.JButton ButtonList;
     private javax.swing.JButton ButtonSalvar;
     private javax.swing.JButton ButtonSearch;
-    private javax.swing.JButton ButtonUnable;
     private javax.swing.JButton ButtonUpdate;
     private javax.swing.JRadioButton RadioButtonContrato;
     private javax.swing.JRadioButton RadioButtonSemContrato;

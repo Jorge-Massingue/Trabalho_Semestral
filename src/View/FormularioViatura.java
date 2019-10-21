@@ -8,20 +8,61 @@ package View;
 import Controller.GeralDAO;
 import static Controller.GeralDAO.listarFuncionarios;
 import static Controller.GeralDAO.listarViaturas;
+import static Controller.GeralDAO.pesquisarViaturas;
 import Model.Funcionarios;
 import Model.Viatura;
 import Model.Viaturas;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static metodos.StringToDate.converterData;
+import static metodos.StringToDate.converterString;
+import metodos.Tabela;
 
 /**
  *
  * @author Almerino Buce
  */
 public class FormularioViatura extends javax.swing.JPanel {
+
+    int cod;
     String estado;
-    /**
-     * Creates new form Exemplar1
-     */
+
+    Viaturas viaturas = new Viaturas();
+    GeralDAO<Viaturas> dao = new GeralDAO<>();
+    Tabela tabela = new Tabela();
+
+    public void desabilitarCampos() {
+        textFieldModelo.setEnabled(false);
+        TextFieldFabricante.setEnabled(false);
+        comboBoxTipo.setEnabled(false);
+    }
+
+    public void HabilitarCampos() {
+        textFieldModelo.setEnabled(true);
+        TextFieldFabricante.setEnabled(true);
+        comboBoxTipo.setEnabled(true);
+    }
+
+    public void limparCampos() {
+        textFieldMatricula.setText("");
+        textFieldModelo.setText("");
+        TextFieldFabricante.setText("");
+        TextFieldCor.setText("");
+        TextFieldCodMotor.setText("");
+        comboBoxTipo.setSelectedItem("Selecione o tipo");
+        TextFieldNumChassis.setText("");
+        buttonGroupEstado.clearSelection();
+    }
+
+    public void listar() {
+        for (Viaturas v : listarViaturas()) {
+            if (v.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableViatura.getModel();
+                model.addRow(new Object[]{v.getCodViatura(), v.getMatricula(), v.getCodMotor(), v.getCodChassi(), v.getFabricante(), v.getModelo(), v.getTipo(), v.getCor(), v.getEstado()});
+            }
+        }
+    }
+
     public FormularioViatura() {
         initComponents();
     }
@@ -64,6 +105,7 @@ public class FormularioViatura extends javax.swing.JPanel {
         comboBoxTipo = new javax.swing.JComboBox();
         radioButtonOperacional = new javax.swing.JRadioButton();
         radioButtonAvariado = new javax.swing.JRadioButton();
+        ButtonImprimir = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(940, 800));
 
@@ -109,6 +151,11 @@ public class FormularioViatura extends javax.swing.JPanel {
 
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
 
         ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         ButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Delete.png"))); // NOI18N
@@ -131,15 +178,20 @@ public class FormularioViatura extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Matricula", "Codigo do motor", "Codigo de chassi", "Fabricante", "Modelo", "Tipo", "Cor", "Estado"
+                "Codigo", "Matricula", "Codigo do motor", "Codigo de chassi", "Fabricante", "Modelo", "Tipo", "Cor", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        TableViatura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableViaturaMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(TableViatura);
@@ -150,6 +202,11 @@ public class FormularioViatura extends javax.swing.JPanel {
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Search.png"))); // NOI18N
+        ButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSearchActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
         jLabel3.setText("Viatura");
@@ -193,7 +250,7 @@ public class FormularioViatura extends javax.swing.JPanel {
         labelEstado.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelEstado.setText("Estado ");
 
-        comboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo", "Sedan", "Hatchback", "SUV", "Camiao", "Camioneta", "Van", "Mini-Van", "Autocarro", "Mini-Autocarro", "Outros", " " }));
+        comboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo", "Sedan", "Hatchback", "SUV", "PickUp", "Camiao", "Camioneta", "Van", "Mini-Van", "Autocarro", "Mini-Autocarro", "Outros", " " }));
 
         buttonGroupEstado.add(radioButtonOperacional);
         radioButtonOperacional.setText("Operacional");
@@ -211,6 +268,14 @@ public class FormularioViatura extends javax.swing.JPanel {
             }
         });
 
+        ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
+        ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonImprimirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -218,15 +283,6 @@ public class FormularioViatura extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -250,21 +306,29 @@ public class FormularioViatura extends javax.swing.JPanel {
                                         .addGap(56, 56, 56)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(TextFieldNumChassis, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                                            .addComponent(labelNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(labelNumChassis, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(labelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(radioButtonOperacional)
-                                                        .addGap(30, 30, 30)
-                                                        .addComponent(radioButtonAvariado)))
-                                                .addGap(0, 0, 0))))
+                                                .addComponent(radioButtonOperacional)
+                                                .addGap(30, 30, 30)
+                                                .addComponent(radioButtonAvariado))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(comboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(labelTipoViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(1, 1, 1)))))))
-                .addContainerGap(330, Short.MAX_VALUE))
+                                        .addGap(1, 1, 1))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,8 +339,8 @@ public class FormularioViatura extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelTipoViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTipoViatura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -311,7 +375,8 @@ public class FormularioViatura extends javax.swing.JPanel {
                     .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(TabbedPaneViatura, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
@@ -338,14 +403,32 @@ public class FormularioViatura extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldNumChassisActionPerformed
 
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
-        for (Viaturas v : listarViaturas()) {
-            DefaultTableModel model = (DefaultTableModel) TableViatura.getModel();
-            model.addRow(new Object[]{v.getMatricula(), v.getCodMotor(), v.getCodChassi(), v.getFabricante(), v.getModelo(), v.getTipo(), v.getCor(), v.getEstado()});
-        }
+        HabilitarCampos();
+        tabela.limpaJtable(TableViatura);
+        listar();
+        limparCampos();
     }//GEN-LAST:event_ButtonListActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        HabilitarCampos();
+        int opcao = (JOptionPane.showConfirmDialog(this, "Tem Certeza de que pretende Apagar o"
+                + " Registo?", "Apagando Registo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        if (opcao == 0) {
+            viaturas.setCodViatura(cod);
+            viaturas.setMatricula(textFieldMatricula.getText());
+            viaturas.setModelo(textFieldModelo.getText());
+            viaturas.setFabricante(TextFieldFabricante.getText());
+            viaturas.setCor(TextFieldCor.getText());
+            viaturas.setCodMotor(TextFieldCodMotor.getText());
+            viaturas.setTipo(comboBoxTipo.getSelectedItem().toString());
+            viaturas.setCodChassi(TextFieldNumChassis.getText());
+            viaturas.setEstado(estado);
+            viaturas.setStatus("False");
+            dao.editar(viaturas);
+            tabela.limpaJtable(TableViatura);
+            listar();
+        }
+        limparCampos();
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void TextFieldCodMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldCodMotorActionPerformed
@@ -353,8 +436,7 @@ public class FormularioViatura extends javax.swing.JPanel {
     }//GEN-LAST:event_TextFieldCodMotorActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
-        Viaturas viaturas = new Viaturas();
-        GeralDAO<Viaturas> gd = new GeralDAO<>();
+        HabilitarCampos();
         viaturas.setMatricula(textFieldMatricula.getText());
         viaturas.setModelo(textFieldModelo.getText());
         viaturas.setFabricante(TextFieldFabricante.getText());
@@ -363,12 +445,11 @@ public class FormularioViatura extends javax.swing.JPanel {
         viaturas.setTipo(comboBoxTipo.getSelectedItem().toString());
         viaturas.setCodChassi(TextFieldNumChassis.getText());
         viaturas.setEstado(estado);
-
-        gd.salvar(viaturas);
-//        DefaultTableModel model = (DefaultTableModel) TableViatura.getModel();
-//        model.addRow(new Object[]{textFieldMatricula.getText(), TextFieldCodMotor.getText(), TextFieldNumChassis.getText(),
-//            TextFieldFabricante.getText(), textFieldModelo.getText(), comboBoxTipo.getSelectedItem().toString(), TextFieldCor.getText(), TextFieldEstado.getText()});
-
+        viaturas.setStatus("True");
+        dao.salvar(viaturas);
+        tabela.limpaJtable(TableViatura);
+        listar();
+        limparCampos();
     }//GEN-LAST:event_ButtonSalvarActionPerformed
 
     private void radioButtonOperacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonOperacionalActionPerformed
@@ -379,9 +460,65 @@ public class FormularioViatura extends javax.swing.JPanel {
         estado = "Avariado";
     }//GEN-LAST:event_radioButtonAvariadoActionPerformed
 
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        HabilitarCampos();
+        viaturas.setCodViatura(cod);
+        viaturas.setMatricula(textFieldMatricula.getText());
+        viaturas.setModelo(textFieldModelo.getText());
+        viaturas.setFabricante(TextFieldFabricante.getText());
+        viaturas.setCor(TextFieldCor.getText());
+        viaturas.setCodMotor(TextFieldCodMotor.getText());
+        viaturas.setTipo(comboBoxTipo.getSelectedItem().toString());
+        viaturas.setCodChassi(TextFieldNumChassis.getText());
+        viaturas.setEstado(estado);
+        viaturas.setStatus("True");
+        dao.editar(viaturas);
+        tabela.limpaJtable(TableViatura);
+        listar();
+        limparCampos();
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void TableViaturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableViaturaMouseClicked
+        buttonGroupEstado.clearSelection();
+        textFieldMatricula.setText((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 1));
+        textFieldModelo.setText((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 5));
+        TextFieldFabricante.setText((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 4));
+        TextFieldCor.setText((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 7));
+        TextFieldCodMotor.setText((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 2));
+        comboBoxTipo.setSelectedItem((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 6));
+        TextFieldNumChassis.setText((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 3));
+        String tipo = ((String) TableViatura.getValueAt(TableViatura.getSelectedRow(), 8));
+        if (tipo.equalsIgnoreCase("Operacional")) {
+            radioButtonOperacional.setSelected(true);
+            estado = "Operacional";
+        } else if (tipo.equalsIgnoreCase("Avariado")) {
+            radioButtonAvariado.setSelected(true);
+            estado = "Avariado";
+        }
+        cod = Integer.parseInt(String.valueOf(TableViatura.getValueAt(TableViatura.getSelectedRow(), 0)));
+        desabilitarCampos();
+
+    }//GEN-LAST:event_TableViaturaMouseClicked
+
+    private void ButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSearchActionPerformed
+        tabela.limpaJtable(TableViatura);
+        for (Viaturas v : pesquisarViaturas(textFieldMatricula.getText())) {
+            if (v.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableViatura.getModel();
+                model.addRow(new Object[]{v.getCodViatura(), v.getMatricula(), v.getCodMotor(), v.getCodChassi(), v.getFabricante(), v.getModelo(), v.getTipo(), v.getCor(), v.getEstado()});
+            }
+        }
+        limparCampos();
+    }//GEN-LAST:event_ButtonSearchActionPerformed
+
+    private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonImprimirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonImprimir;
     private javax.swing.JButton ButtonList;
     private javax.swing.JButton ButtonSalvar;
     private javax.swing.JButton ButtonSearch;

@@ -54,37 +54,25 @@
               <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="95" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="TabbedPaneCliente" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="TabbedPaneCliente" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="labelModelo" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
-                                      <Component id="jlCdParqueamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbBI" alignment="0" min="-2" pref="352" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labelValor" min="-2" pref="106" max="-2" attributes="0"/>
-                                      <Component id="TextFieldValor" alignment="0" min="-2" pref="369" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="cbCodParqueamento" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="labelModelo" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
+                              <Component id="jlCdParqueamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbBI" alignment="0" min="-2" pref="352" max="-2" attributes="0"/>
+                              <Component id="ButtonSalvar" min="-2" pref="98" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelValor" min="-2" pref="106" max="-2" attributes="0"/>
+                              <Component id="TextFieldValor" alignment="0" min="-2" pref="369" max="-2" attributes="0"/>
+                              <Component id="ButtonList" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="ButtonSalvar" min="-2" pref="98" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="ButtonUpdate" min="-2" pref="98" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="ButtonDelete" min="-2" pref="98" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="ButtonList" min="-2" pref="98" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="cbCodParqueamento" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -112,8 +100,6 @@
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="ButtonSalvar" min="-2" pref="52" max="-2" attributes="0"/>
-                      <Component id="ButtonUpdate" min="-2" pref="52" max="-2" attributes="0"/>
-                      <Component id="ButtonDelete" min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="ButtonList" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -149,6 +135,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TextFieldValor">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldValorActionPerformed"/>
           </Events>
@@ -164,29 +153,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonSalvarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="ButtonUpdate">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagens/Update.png"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="ButtonDelete">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagens/Delete.png"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonDeleteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonList">
@@ -224,8 +190,8 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="0">
-                        <Column editable="false" title="C&#xf3;digo Parqueamento" type="java.lang.Object"/>
                         <Column editable="false" title="C&#xf3;digo Levantamento" type="java.lang.Object"/>
+                        <Column editable="false" title="C&#xf3;digo Parqueamento" type="java.lang.Object"/>
                         <Column editable="false" title="BI" type="java.lang.Object"/>
                         <Column editable="false" title="Valor" type="java.lang.Object"/>
                         <Column editable="false" title="Data " type="java.lang.Object"/>
@@ -336,22 +302,19 @@
         <Component class="javax.swing.JComboBox" name="cbBI">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="123654789745F"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbCodParqueamento">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value=" "/>
-                <StringItem index="1" value="1"/>
-                <StringItem index="2" value="2"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCodParqueamentoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

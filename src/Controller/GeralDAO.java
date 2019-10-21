@@ -15,6 +15,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -28,7 +29,7 @@ public class GeralDAO<O> {
         Transaction tx = s.beginTransaction();
 
         try {
-            s.saveOrUpdate(o);
+            s.save(o);
             tx.commit();
             return true;
 
@@ -80,6 +81,24 @@ public class GeralDAO<O> {
 
     }
 
+    public static ArrayList<Parqueamentos> listarParqueamentosParaLevantamento() {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Parqueamentos> parqueamentos = new ArrayList<>();
+        try {
+            Transaction t = s.beginTransaction();
+            Criteria cr = s.createCriteria(Parqueamentos.class);
+            cr.add(Restrictions.and(Restrictions.eq("status", "True"), Restrictions.eq("estado", "Act")));
+            parqueamentos = (ArrayList<Parqueamentos>) cr.list();
+            t.commit();
+            return parqueamentos;
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+
     public static ArrayList<Utilizadores> listarUtilizadores() {
         Session s = HibernateUtil.getSessionFactory().openSession();
         ArrayList<Utilizadores> utilizadores = new ArrayList<>();
@@ -113,6 +132,79 @@ public class GeralDAO<O> {
             s.close();
         }
     }
+
+    public static ArrayList<Funcionarios> pesquisarFuncionarios(String string) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Funcionarios> funcionarios = new ArrayList<>();
+        try {
+            Transaction t = s.beginTransaction();
+            Criteria cr = s.createCriteria(Funcionarios.class);
+            cr.add(Restrictions.like("nomeCompleto", "%" + string + "%"));
+            funcionarios = (ArrayList<Funcionarios>) cr.list();
+            t.commit();
+            return funcionarios;
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+
+    public static ArrayList<Utilizadores> pesquisarUtilizadores(String string) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Utilizadores> utilizadores = new ArrayList<>();
+        try {
+            Transaction t = s.beginTransaction();
+            Criteria cr = s.createCriteria(Utilizadores.class);
+            cr.add(Restrictions.like("nomeUtilizador", "%" + string + "%"));
+            utilizadores = (ArrayList<Utilizadores>) cr.list();
+            t.commit();
+            return utilizadores;
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+
+    public static ArrayList<Clientes> pesquisarClientes(String string) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Clientes> clientes = new ArrayList<>();
+        try {
+            Transaction t = s.beginTransaction();
+            Criteria cr = s.createCriteria(Clientes.class);
+            cr.add(Restrictions.like("nomeCompleto", "%" + string + "%"));
+            clientes = (ArrayList<Clientes>) cr.list();
+            t.commit();
+            return clientes;
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+
+    public static ArrayList<Viaturas> pesquisarViaturas(String string) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Viaturas> viaturas = new ArrayList<>();
+        try {
+            Transaction t = s.beginTransaction();
+            Criteria cr = s.createCriteria(Viaturas.class);
+            cr.add(Restrictions.like("matricula", "%" + string + "%"));
+            viaturas = (ArrayList<Viaturas>) cr.list();
+            t.commit();
+            return viaturas;
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+
     public static ArrayList<Clientes> listarClientes() {
         Session s = HibernateUtil.getSessionFactory().openSession();
         ArrayList<Clientes> clientes = new ArrayList<>();
@@ -129,6 +221,7 @@ public class GeralDAO<O> {
             s.close();
         }
     }
+
     public static ArrayList<Viaturas> listarViaturas() {
         Session s = HibernateUtil.getSessionFactory().openSession();
         ArrayList<Viaturas> viaturas = new ArrayList<>();
@@ -145,6 +238,7 @@ public class GeralDAO<O> {
             s.close();
         }
     }
+
     public static ArrayList<Parqueamentos> listarParqueamentos() {
         Session s = HibernateUtil.getSessionFactory().openSession();
         ArrayList<Parqueamentos> parqueamentos = new ArrayList<>();
@@ -161,6 +255,7 @@ public class GeralDAO<O> {
             s.close();
         }
     }
+
     public static ArrayList<Vagas> listarVagas() {
         Session s = HibernateUtil.getSessionFactory().openSession();
         ArrayList<Vagas> vagas = new ArrayList<>();
@@ -184,5 +279,4 @@ public class GeralDAO<O> {
         }
     }
 
-    
 }

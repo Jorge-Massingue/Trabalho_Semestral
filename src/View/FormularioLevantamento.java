@@ -6,6 +6,8 @@
 package View;
 
 import Controller.GeralDAO;
+import static Controller.GeralDAO.listarParqueamentosParaLevantamento;
+import Controller.OutrasOperacoesDao;
 import Model.Levantamentos;
 import Model.Parqueamentos;
 import java.text.SimpleDateFormat;
@@ -18,11 +20,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormularioLevantamento extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Exemplar1
-     */
+    GeralDAO<Parqueamentos> gd = new GeralDAO<>();
+    Parqueamentos parqueamentos = new Parqueamentos();
+    OutrasOperacoesDao o = new OutrasOperacoesDao();
+    String cod;
+//    String codI;
+
     public FormularioLevantamento() {
         initComponents();
+        o.listarParqueamentoParaLevantamento(cbCodParqueamento);
     }
 
     /**
@@ -41,8 +47,6 @@ public class FormularioLevantamento extends javax.swing.JPanel {
         jlCdParqueamento = new javax.swing.JLabel();
         TextFieldValor = new javax.swing.JTextField();
         ButtonSalvar = new javax.swing.JButton();
-        ButtonUpdate = new javax.swing.JButton();
-        ButtonDelete = new javax.swing.JButton();
         ButtonList = new javax.swing.JButton();
         TabbedPaneCliente = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,6 +72,7 @@ public class FormularioLevantamento extends javax.swing.JPanel {
         jlCdParqueamento.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jlCdParqueamento.setText("Codigo do parqueamento");
 
+        TextFieldValor.setEnabled(false);
         TextFieldValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldValorActionPerformed(evt);
@@ -79,17 +84,6 @@ public class FormularioLevantamento extends javax.swing.JPanel {
         ButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonSalvarActionPerformed(evt);
-            }
-        });
-
-        ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
-
-        ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Delete.png"))); // NOI18N
-        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonDeleteActionPerformed(evt);
             }
         });
 
@@ -106,7 +100,7 @@ public class FormularioLevantamento extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código Parqueamento", "Código Levantamento", "BI", "Valor", "Data ", "Hora"
+                "Código Levantamento", "Código Parqueamento", "BI", "Valor", "Data ", "Hora"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -153,9 +147,11 @@ public class FormularioLevantamento extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cbBI.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "123654789745F" }));
-
-        cbCodParqueamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "1", "2" }));
+        cbCodParqueamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCodParqueamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,30 +160,21 @@ public class FormularioLevantamento extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(95, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(labelModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlCdParqueamento, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbBI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(68, 68, 68)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(cbCodParqueamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(213, 213, 213))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlCdParqueamento, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbBI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbCodParqueamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,8 +197,6 @@ public class FormularioLevantamento extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,10 +218,6 @@ public class FormularioLevantamento extends javax.swing.JPanel {
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ButtonListActionPerformed
-
-    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void TextFieldValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldValorActionPerformed
         // TODO add your handling code here:
@@ -265,13 +246,17 @@ public class FormularioLevantamento extends javax.swing.JPanel {
 
     }//GEN-LAST:event_ButtonSalvarActionPerformed
 
+    private void cbCodParqueamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCodParqueamentoActionPerformed
+        cod = cbCodParqueamento.getSelectedItem().toString();
+        o.listarBIParqueamentoParaLevantamentoBI(cbBI, cod);
+
+    }//GEN-LAST:event_cbCodParqueamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonDelete;
     private javax.swing.JButton ButtonList;
     private javax.swing.JButton ButtonSalvar;
     private javax.swing.JButton ButtonSearch;
-    private javax.swing.JButton ButtonUpdate;
     private javax.swing.JTabbedPane TabbedPaneCliente;
     private javax.swing.JTable TableLevantamentos;
     private javax.swing.JTextField TextFieldValor;

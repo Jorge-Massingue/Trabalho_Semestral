@@ -7,19 +7,22 @@ package View;
 
 import Controller.GeralDAO;
 import static Controller.GeralDAO.listarClientes;
-import static Controller.GeralDAO.listarFuncionarios;
 import static Controller.GeralDAO.listarParqueamentos;
 import static Controller.GeralDAO.listarVagas;
 import static Controller.GeralDAO.listarViaturas;
+import Controller.OutrasOperacoesDao;
 import Model.Clientes;
-import Model.Funcionarios;
 import Model.Parqueamentos;
 import Model.Vagas;
 import Model.Viaturas;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static metodos.StringToDate.converterData;
+import static metodos.StringToDate.converterString;
+import metodos.Tabela;
 
 /**
  *
@@ -27,32 +30,90 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormularioParqueamento extends javax.swing.JPanel {
 
-    public void getCodCliente(JComboBox comboBox, String contrato) {
-        comboBox.removeAllItems();
-        comboBox.addItem("");
-        for (Clientes f : listarClientes()) {
-            if (f.getContrato().equalsIgnoreCase(contrato)) {
-                comboBox.addItem(f.getNrBI());
+    String categoria;
+
+    public void desabilitarCampos() {
+        comboBoxNumBi.setEnabled(false);
+        comboBoxMatricula.setEnabled(false);
+        radioButtonContrato.setEnabled(false);
+        radioButtonSemContrato.setEnabled(false);
+        ComboBoxVaga.setEnabled(false);
+    }
+
+    public void HabilitarCampos() {
+        comboBoxNumBi.setEnabled(true);
+        comboBoxMatricula.setEnabled(true);
+        radioButtonContrato.setEnabled(true);
+        radioButtonSemContrato.setEnabled(true);
+        ComboBoxVaga.setEnabled(true);
+    }
+
+    public void limparCampos() {
+        textFieldNumBiAlt.setText("");
+        textFieldNomeAlt.setText("");
+        buttonGroupTipoParqueamento.clearSelection();
+        comboBoxNumBi.setSelectedItem("");
+        comboBoxMatricula.setSelectedItem("");
+        ComboBoxVaga.setSelectedItem("");
+    }
+
+    public void listar() {
+        for (Parqueamentos p : listarParqueamentos()) {
+            if (p.getStatus().equalsIgnoreCase("True")) {
+                DefaultTableModel model = (DefaultTableModel) TableParqueamento.getModel();
+                model.addRow(new Object[]{p.getCodParqueamento(), p.getTipoParqueamento(), p.getNrBI(), p.getMatricula(), p.getNrBIAlternativo(), p.getNomeAlternativo(), p.getVagaDescricao(), p.getEstado(), p.getDataP(), p.getHoraP()});
             }
         }
     }
 
-    public void getMatricula(JComboBox comboBox) {
+    public void getCliente(JComboBox comboBox, String contrato) {
+        int i = 0;
+        comboBox.removeAllItems();
         comboBox.addItem("");
-        for (Viaturas v : listarViaturas()) {
-            comboBox.addItem(v.getMatricula());
+        for (Clientes c : listarClientes()) {
+            if (c.getContrato().equalsIgnoreCase(contrato) && c.getStatus().equalsIgnoreCase("True")) {
+                for (Parqueamentos p : listarParqueamentos()) {
+                    if (c.getNrBI().equalsIgnoreCase(p.getNrBI()) && p.getEstado().equalsIgnoreCase("Inactivo") && p.getStatus().equalsIgnoreCase("True")) {
+                        i = i + 1;
+                    }
+                }
+                if (i != 0) {
+                    comboBox.addItem(c.getNrBI());
+                }
+                i = 0;
+            }
         }
     }
 
+    public void buscarCategoria(String matricula) {
+        for (Viaturas v : listarViaturas()) {
+            if (v.getMatricula().equalsIgnoreCase(matricula)) {
+                categoria = v.getTipo();
+            }
+        }
+    }
+
+//    public void getMatricula(JComboBox comboBox) {
+//        comboBox.addItem("");
+//        for (Viaturas v : listarViaturas()) {
+//            comboBox.addItem(v.getMatricula());
+//        }
+//    }
     public void getVaga(JComboBox comboBox) {
+        comboBox.removeAllItems();
         comboBox.addItem("");
         for (Vagas v : listarVagas()) {
-            if (v.getStatus().equals("1")) {
+            if (v.getStatus().equals("True")) {
                 comboBox.addItem(v.getDescricao());
             }
         }
     }
+    Parqueamentos parqueamentos = new Parqueamentos();
+    GeralDAO<Parqueamentos> gd = new GeralDAO<>();
     String tipoParqueamento;
+    Tabela tabela = new Tabela();
+    OutrasOperacoesDao o = new OutrasOperacoesDao();
+    int cod;
 
     /**
      * Creates new form Exemplar1
@@ -60,7 +121,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
     public FormularioParqueamento() {
         initComponents();
         comboBoxNumBi.addItem("");
-        getMatricula(comboBoxMatricula);
+        o.listarViaturasParaParqueamento(comboBoxMatricula);
         getVaga(ComboBoxVaga);
     }
 
@@ -98,6 +159,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
         textFieldNumBiAlt = new javax.swing.JTextField();
         labelNomeAlternativo = new javax.swing.JLabel();
         textFieldNomeAlt = new javax.swing.JTextField();
+        ButtonImprimir = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(940, 800));
 
@@ -126,6 +188,11 @@ public class FormularioParqueamento extends javax.swing.JPanel {
 
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
+        ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonUpdateActionPerformed(evt);
+            }
+        });
 
         ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         ButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Delete.png"))); // NOI18N
@@ -148,15 +215,20 @@ public class FormularioParqueamento extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código parqueamento", "Tipo", "BI", "Matricula", "BI Alternativo", "Nome alternativo", "Vaga", "Data", "Hora"
+                "Codigo", "Tipo", "BI", "Matricula", "BI Alternativo", "Nome alternativo", "Vaga", "Estado", "Data", "Hora"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        TableParqueamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableParqueamentoMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(TableParqueamento);
@@ -178,7 +250,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 611, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 621, Short.MAX_VALUE)
                 .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -217,11 +289,25 @@ public class FormularioParqueamento extends javax.swing.JPanel {
             }
         });
 
+        comboBoxMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxMatriculaActionPerformed(evt);
+            }
+        });
+
         labelBiAlternativo.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelBiAlternativo.setText("Numero de BI Alternativo");
 
         labelNomeAlternativo.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelNomeAlternativo.setText("Nome Alternativo");
+
+        ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
+        ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -229,19 +315,9 @@ public class FormularioParqueamento extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(95, 95, 95)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TabbedPaneParqueamento, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -266,8 +342,19 @@ public class FormularioParqueamento extends javax.swing.JPanel {
                                                 .addComponent(labelNomeAlternativo))
                                             .addGap(0, 221, Short.MAX_VALUE))
                                         .addComponent(textFieldNomeAlt)))
-                                .addComponent(ComboBoxVaga, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(35, 35, 35))
+                                .addComponent(ComboBoxVaga, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,14 +388,17 @@ public class FormularioParqueamento extends javax.swing.JPanel {
                 .addComponent(labelVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ComboBoxVaga, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(TabbedPaneParqueamento, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(TabbedPaneParqueamento, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76))
         );
 
@@ -325,14 +415,24 @@ public class FormularioParqueamento extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonListActionPerformed
-        for (Parqueamentos p : listarParqueamentos()) {
-            DefaultTableModel model = (DefaultTableModel) TableParqueamento.getModel();
-            model.addRow(new Object[]{p.getCodParqueamento(), p.getTipoParqueamento(), p.getNrBI(), p.getMatricula(), p.getNrBIAlternativo(), p.getNomeAlternativo(), p.getVagaDescricao(), p.getDataP(), p.getHoraP()});
-        }
+        HabilitarCampos();
+        tabela.limpaJtable(TableParqueamento);
+        listar();
+        limparCampos();
+
     }//GEN-LAST:event_ButtonListActionPerformed
 
     private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
-        // TODO add your handling code here:
+        HabilitarCampos();
+        int opcao = (JOptionPane.showConfirmDialog(this, "Tem Certeza de que pretende Apagar o"
+                + " Registo?", "Apagando Registo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE));
+        if (opcao == 0) {
+            o.apagarParqueamento(cod);
+            tabela.limpaJtable(TableParqueamento);
+            listar();
+        }
+        limparCampos();
+        o.listarViaturasParaParqueamento(comboBoxMatricula);
     }//GEN-LAST:event_ButtonDeleteActionPerformed
 
     private void comboBoxNumBiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxNumBiActionPerformed
@@ -340,43 +440,86 @@ public class FormularioParqueamento extends javax.swing.JPanel {
     }//GEN-LAST:event_comboBoxNumBiActionPerformed
 
     private void radioButtonContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonContratoActionPerformed
-        tipoParqueamento = "Contrato";
-        getCodCliente(comboBoxNumBi, tipoParqueamento);
+        tipoParqueamento = "Activo";
+        getCliente(comboBoxNumBi, tipoParqueamento);
+        o.listarClientesContratoParaParqueamento(comboBoxNumBi);
+//        o.listarClientesContratoParaParqueamentoI(comboBoxNumBi);
     }//GEN-LAST:event_radioButtonContratoActionPerformed
 
     private void radioButtonSemContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonSemContratoActionPerformed
-        tipoParqueamento = "Sem Contrato";
-        getCodCliente(comboBoxNumBi, tipoParqueamento);
+        tipoParqueamento = "Inactivo";
+//        getCliente(comboBoxNumBi, tipoParqueamento);
+        o.listarClientesSemContratoParaParqueamento(comboBoxNumBi);
+        o.listarClientesSemContratoParaParqueamentoI(comboBoxNumBi);
     }//GEN-LAST:event_radioButtonSemContratoActionPerformed
 
     private void ButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalvarActionPerformed
-        Parqueamentos parqueamentos = new Parqueamentos();
-        GeralDAO<Parqueamentos> gd = new GeralDAO<>();
+        HabilitarCampos();
         parqueamentos.setTipoParqueamento(tipoParqueamento);
         parqueamentos.setMatricula(comboBoxMatricula.getSelectedItem().toString());
         parqueamentos.setNrBI(comboBoxNumBi.getSelectedItem().toString());
         parqueamentos.setNrBIAlternativo(textFieldNumBiAlt.getText());
         parqueamentos.setNomeAlternativo(textFieldNomeAlt.getText());
         parqueamentos.setVagaDescricao(ComboBoxVaga.getSelectedItem().toString());
-
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date hoje = new Date();
         parqueamentos.setDataP((df.format(hoje)));
-
         SimpleDateFormat dfa = new SimpleDateFormat("HH:mm:ss");
         Date agora = new Date();
         parqueamentos.setHoraP(dfa.format(agora));
-
+        parqueamentos.setEstado("Activo");
+        parqueamentos.setStatus("True");
         gd.salvar(parqueamentos);
-        DefaultTableModel model = (DefaultTableModel) TableParqueamento.getModel();
-        model.addRow(new Object[]{"", tipoParqueamento, comboBoxNumBi.getSelectedItem().toString(), comboBoxMatricula.getSelectedItem().toString(),
-            textFieldNumBiAlt.getText(), textFieldNomeAlt.getText(), ComboBoxVaga.getSelectedItem().toString(), df.format(hoje), df.format(agora)});
+        o.actualizarEstadoVaga(ComboBoxVaga.getSelectedItem().toString());
+        tabela.limpaJtable(TableParqueamento);
+        listar();
+        limparCampos();
+        o.listarViaturasParaParqueamento(comboBoxMatricula);
 
     }//GEN-LAST:event_ButtonSalvarActionPerformed
+
+    private void comboBoxMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxMatriculaActionPerformed
+        buscarCategoria(comboBoxMatricula.getSelectedItem().toString());
+        o.listarVagasParaParqueamento(ComboBoxVaga, categoria);
+    }//GEN-LAST:event_comboBoxMatriculaActionPerformed
+
+    private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonImprimirActionPerformed
+
+    private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed
+        HabilitarCampos();
+        o.actualizarParqueamento(textFieldNumBiAlt.getText(), textFieldNomeAlt.getText(), cod);
+        tabela.limpaJtable(TableParqueamento);
+        listar();
+        limparCampos();
+
+    }//GEN-LAST:event_ButtonUpdateActionPerformed
+
+    private void TableParqueamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableParqueamentoMouseClicked
+        buttonGroupTipoParqueamento.clearSelection();
+        comboBoxNumBi.setSelectedItem((String) TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 2));
+        comboBoxMatricula.setSelectedItem((String) TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 3));
+        textFieldNumBiAlt.setText((String) TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 4));
+        textFieldNomeAlt.setText((String) TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 5));
+        ComboBoxVaga.setSelectedItem((String) TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 6));
+        String tipo = ((String) TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 7));
+        if (tipo.equalsIgnoreCase("Activo")) {
+            radioButtonContrato.setSelected(true);
+            tipoParqueamento = "Activo";
+        } else if (tipo.equalsIgnoreCase("Inactivo")) {
+            radioButtonSemContrato.setSelected(true);
+            tipoParqueamento = "Inactivo";
+        }
+        cod = Integer.parseInt(String.valueOf(TableParqueamento.getValueAt(TableParqueamento.getSelectedRow(), 0)));
+        desabilitarCampos();
+
+    }//GEN-LAST:event_TableParqueamentoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonImprimir;
     private javax.swing.JButton ButtonList;
     private javax.swing.JButton ButtonSalvar;
     private javax.swing.JButton ButtonSearch;
