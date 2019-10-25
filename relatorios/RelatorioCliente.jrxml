@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFuncionario" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="896f7bb5-e364-4480-ab93-36ab97f1ffee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select nrBI, nomeCompleto, sexo, morada, dataNascimento, contacto, email, contrato from clientes where status = 'True']]>
+	</queryString>
+	<field name="nrBI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="morada" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataNascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contacto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contrato" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="166" splitType="Stretch">
+			<image>
+				<reportElement x="674" y="0" width="128" height="128" uuid="ffd63456-0fcc-4f4e-97e1-98462c6537bb"/>
+				<imageExpression><![CDATA["G:\\UEM\\NÍVEL II\\SEMESTRE II\\POO\\Trabe_Semestral_POO\\src\\Imagens\\1467688374_Hipster-08.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="674" y="128" width="128" height="38" uuid="4ea70d30-cf08-4da3-9b97-a9c0e04f2f32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Verdant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="45" width="214" height="46" uuid="2cbfea04-8b60-477a-b865-195b0daef81b"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Palvic, Lda]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="274" height="37" uuid="45af064d-605c-4d99-b1af-b62333ac9f9b"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Clientes]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="20" y="37" width="151" height="29" uuid="803eccab-a6b8-4472-af3a-06a65c417e8a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="2" width="80" height="20" uuid="c59ef332-38b3-4b58-85a2-f8c346b7281d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="2" width="84" height="20" uuid="7331f3f5-3322-41a9-8989-36e0f618b7b2"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="2" width="62" height="20" uuid="a7548043-e7e2-4f94-99be-474464504d79"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="2" width="64" height="20" uuid="b7e2a26c-a547-4c91-93a5-b596d2afea9a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Morada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="2" width="80" height="20" uuid="fb8808a5-1855-4be7-83c8-ff2eface50ca"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="2" width="64" height="20" uuid="33f542df-431e-4ec3-a9eb-d44cdb4df70d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contacto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="2" width="128" height="20" uuid="fdd23233-f7ea-4623-8ab3-118440c7c937"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="581" y="2" width="100" height="20" uuid="755aae19-f81f-4083-8c2c-be1a4b78c1ac"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contrato]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="0" width="80" height="20" uuid="a1c54d11-f5b8-4ebe-a8d4-4cf02670e209"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrBI}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="20" y="31" width="762" height="1" uuid="9b1caa17-4964-468b-9bca-0e3a4086c61e"/>
+			</line>
+			<textField>
+				<reportElement x="100" y="0" width="84" height="20" uuid="796bb674-8fa9-4490-b2ad-3d9c7902cba8"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="62" height="20" uuid="c1d7a5b4-5303-4dd5-8447-8312cbf858c4"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="64" height="20" uuid="95aff9e9-b725-41cc-9a89-64f2bec3014f"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{morada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="0" width="80" height="20" uuid="28f96758-bd88-49b9-870c-45a99bb8e75f"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="64" height="20" uuid="6f1358b4-2b3e-4c01-9d88-aaf5025e0258"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contacto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="128" height="20" uuid="e10dfc3c-3438-424a-bb21-5afad1a863d3"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="581" y="0" width="100" height="20" uuid="d81923e4-5f49-4659-a7ac-8c66305e223a"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrato}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="72" splitType="Stretch">
+			<line>
+				<reportElement x="21" y="7" width="762" height="1" uuid="1598257b-650e-4941-8a43-237508a1df0a"/>
+			</line>
+			<staticText>
+				<reportElement x="224" y="8" width="357" height="20" uuid="625b1b91-40ab-41da-8b79-938f1e33d6cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parque de Estacionamento de Malhazine Palvic, Lda.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="28" width="437" height="20" uuid="b9c16726-1508-490f-87f3-57374c3f4e1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro do Malhazine - Av, Lurdes Mutola, Maputo Moçambique]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="48" width="435" height="20" uuid="52712faa-a536-4df0-ad1e-9bc61d6eb40e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cel.: +258 82/84 8887986 82/84 4883020 Telefax: 21 470 466]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="674" y="0" width="80" height="20" uuid="1250381a-c347-4174-83e5-4d7ac9b994aa"/>
+				<textElement textAlignment="Right">
+					<font fontName="Algerian" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="754" y="0" width="40" height="20" uuid="52aaea0f-fa61-46ce-b538-d8343b645824"/>
+				<textElement>
+					<font fontName="Algerian" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="13" splitType="Stretch"/>
+	</summary>
+</jasperReport>

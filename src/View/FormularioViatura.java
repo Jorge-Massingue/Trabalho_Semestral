@@ -115,11 +115,12 @@ public class FormularioViatura extends javax.swing.JPanel {
         labelMatricula.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelMatricula.setText("Matricula");
 
-        textFieldMatricula.setFont(new java.awt.Font("Bookman Old Style", 0, 11)); // NOI18N
+        textFieldMatricula.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         labelModelo.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelModelo.setText("Modelo");
 
+        textFieldModelo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         textFieldModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldModeloActionPerformed(evt);
@@ -132,9 +133,12 @@ public class FormularioViatura extends javax.swing.JPanel {
         labelFabricante.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelFabricante.setText("Fabricante");
 
+        TextFieldCor.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+
         labelNumChassis.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelNumChassis.setText("Codigo de chassi");
 
+        TextFieldNumChassis.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         TextFieldNumChassis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldNumChassisActionPerformed(evt);
@@ -238,6 +242,7 @@ public class FormularioViatura extends javax.swing.JPanel {
         labelCodigoMotor.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelCodigoMotor.setText("Codigo do motor");
 
+        TextFieldCodMotor.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         TextFieldCodMotor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldCodMotorActionPerformed(evt);
@@ -247,9 +252,12 @@ public class FormularioViatura extends javax.swing.JPanel {
         labelCor.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelCor.setText("Cor");
 
+        TextFieldFabricante.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+
         labelEstado.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelEstado.setText("Estado ");
 
+        comboBoxTipo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         comboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o tipo", "Sedan", "Hatchback", "SUV", "PickUp", "Camiao", "Camioneta", "Van", "Mini-Van", "Autocarro", "Mini-Autocarro", "Outros", " " }));
 
         buttonGroupEstado.add(radioButtonOperacional);
@@ -270,6 +278,7 @@ public class FormularioViatura extends javax.swing.JPanel {
 
         ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
         ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
+        ButtonImprimir.setToolTipText("Imprimir");
         ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonImprimirActionPerformed(evt);

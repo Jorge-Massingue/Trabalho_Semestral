@@ -9,7 +9,7 @@ import View.FormFuncionario;
 import View.FormUtilizador;
 import java.awt.CardLayout;
 import javax.swing.SwingUtilities;
-import View.PainelMenu;
+//import View.PainelMenu;
 import javax.swing.JPanel;
 
 /**

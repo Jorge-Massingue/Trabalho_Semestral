@@ -118,6 +118,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         painelCadastroUtilizadores.setName(""); // NOI18N
         painelCadastroUtilizadores.setPreferredSize(new java.awt.Dimension(940, 800));
 
+        tfNome.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         tfNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +166,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         jlCargo.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jlCargo.setText("Cargo");
 
+        cbCargos.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cbCargos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o Cargo", "Secretario", "Cozinheiro", "Manobrista", "Zelador", "Outros" }));
         cbCargos.setNextFocusableComponent(this);
         cbCargos.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +178,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         jlGenero.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jlGenero.setText("Genero");
 
+        tfBI.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         tfBI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfBI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +208,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         jlDepartamento.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jlDepartamento.setText("Departamento");
 
+        cbDepartamento.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o Departamento", "Administracao", "Copa", "Seguranca", "Outros" }));
         cbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +216,7 @@ public class FormFuncionario extends javax.swing.JPanel {
             }
         });
 
+        tfMorada.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         tfMorada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfMorada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,6 +230,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         jlContacto.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jlContacto.setText("Contacto");
 
+        tfContacto.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         tfContacto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,6 +241,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jLabel1.setText("Email");
 
+        textFieldEmail.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         textFieldEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,7 +330,7 @@ public class FormFuncionario extends javax.swing.JPanel {
 
         ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
         ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
-        ButtonImprimir.setToolTipText("Listar");
+        ButtonImprimir.setToolTipText("Imprimir");
         ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonImprimirActionPerformed(evt);
@@ -334,6 +341,7 @@ public class FormFuncionario extends javax.swing.JPanel {
         labelDataNasc.setText("Data de nascimento");
 
         dateChooserDatNasc.setDateFormatString("dd-MM-yyyy");
+        dateChooserDatNasc.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout painelCadastroUtilizadoresLayout = new javax.swing.GroupLayout(painelCadastroUtilizadores);
         painelCadastroUtilizadores.setLayout(painelCadastroUtilizadoresLayout);

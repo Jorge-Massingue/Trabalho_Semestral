@@ -29,9 +29,9 @@ import metodos.Tabela;
  * @author Almerino Buce
  */
 public class FormularioParqueamento extends javax.swing.JPanel {
-
+    
     String categoria;
-
+    
     public void desabilitarCampos() {
         comboBoxNumBi.setEnabled(false);
         comboBoxMatricula.setEnabled(false);
@@ -39,7 +39,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
         radioButtonSemContrato.setEnabled(false);
         ComboBoxVaga.setEnabled(false);
     }
-
+    
     public void HabilitarCampos() {
         comboBoxNumBi.setEnabled(true);
         comboBoxMatricula.setEnabled(true);
@@ -47,7 +47,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
         radioButtonSemContrato.setEnabled(true);
         ComboBoxVaga.setEnabled(true);
     }
-
+    
     public void limparCampos() {
         textFieldNumBiAlt.setText("");
         textFieldNomeAlt.setText("");
@@ -56,7 +56,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
         comboBoxMatricula.setSelectedItem("");
         ComboBoxVaga.setSelectedItem("");
     }
-
+    
     public void listar() {
         for (Parqueamentos p : listarParqueamentos()) {
             if (p.getStatus().equalsIgnoreCase("True")) {
@@ -65,7 +65,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
             }
         }
     }
-
+    
     public void getCliente(JComboBox comboBox, String contrato) {
         int i = 0;
         comboBox.removeAllItems();
@@ -84,7 +84,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
             }
         }
     }
-
+    
     public void buscarCategoria(String matricula) {
         for (Viaturas v : listarViaturas()) {
             if (v.getMatricula().equalsIgnoreCase(matricula)) {
@@ -140,7 +140,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
         labelNumBI = new javax.swing.JLabel();
         labelMatricula = new javax.swing.JLabel();
         labelVaga = new javax.swing.JLabel();
-        ComboBoxVaga = new javax.swing.JComboBox<String>();
+        ComboBoxVaga = new javax.swing.JComboBox<>();
         ButtonSalvar = new javax.swing.JButton();
         ButtonUpdate = new javax.swing.JButton();
         ButtonDelete = new javax.swing.JButton();
@@ -151,10 +151,10 @@ public class FormularioParqueamento extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         ButtonSearch = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxNumBi = new javax.swing.JComboBox<String>();
+        comboBoxNumBi = new javax.swing.JComboBox<>();
         radioButtonContrato = new javax.swing.JRadioButton();
         radioButtonSemContrato = new javax.swing.JRadioButton();
-        comboBoxMatricula = new javax.swing.JComboBox<String>();
+        comboBoxMatricula = new javax.swing.JComboBox<>();
         labelBiAlternativo = new javax.swing.JLabel();
         textFieldNumBiAlt = new javax.swing.JTextField();
         labelNomeAlternativo = new javax.swing.JLabel();
@@ -303,6 +303,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
 
         ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
         ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
+        ButtonImprimir.setToolTipText("Imprimir");
         ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonImprimirActionPerformed(evt);
@@ -484,7 +485,7 @@ public class FormularioParqueamento extends javax.swing.JPanel {
     }//GEN-LAST:event_comboBoxMatriculaActionPerformed
 
     private void ButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonImprimirActionPerformed
-        // TODO add your handling code here:
+////        o.imprimir("G:\\UEM\\NÍVEL II\\SEMESTRE II\\POO\\Trabe_Semestral_POO\\relatorios\\RelatorioParqueamento.jasper");
     }//GEN-LAST:event_ButtonImprimirActionPerformed
 
     private void ButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonUpdateActionPerformed

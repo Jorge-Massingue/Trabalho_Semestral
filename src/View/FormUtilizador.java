@@ -122,7 +122,7 @@ public class FormUtilizador extends javax.swing.JPanel {
             .addGroup(jpTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 498, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ButtonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54))
         );
@@ -141,6 +141,8 @@ public class FormUtilizador extends javax.swing.JPanel {
         jlNome.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         jlNome.setText("Nome de utlizador");
 
+        tfNome.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        tfNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNomeActionPerformed(evt);
@@ -169,7 +171,7 @@ public class FormUtilizador extends javax.swing.JPanel {
             }
         });
 
-        cbBI.setFont(new java.awt.Font("Bookman Old Style", 2, 14)); // NOI18N
+        cbBI.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cbBI.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jlBI.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
@@ -256,12 +258,15 @@ public class FormUtilizador extends javax.swing.JPanel {
 
         ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
         ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
-        ButtonImprimir.setToolTipText("Listar");
+        ButtonImprimir.setToolTipText("Imprimir");
         ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonImprimirActionPerformed(evt);
             }
         });
+
+        textFieldPassword.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        textFieldPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -269,7 +274,7 @@ public class FormUtilizador extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(82, 82, 82)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbBI, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlNome, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)

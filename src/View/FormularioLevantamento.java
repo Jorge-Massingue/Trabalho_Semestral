@@ -6,6 +6,8 @@
 package View;
 
 import Controller.GeralDAO;
+import static Controller.GeralDAO.listarLevantamentos;
+import static Controller.GeralDAO.listarParqueamentos;
 import static Controller.GeralDAO.listarParqueamentosParaLevantamento;
 import Controller.OutrasOperacoesDao;
 import Model.Levantamentos;
@@ -20,10 +22,37 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormularioLevantamento extends javax.swing.JPanel {
 
-    GeralDAO<Parqueamentos> gd = new GeralDAO<>();
+    Levantamentos levantamentos = new Levantamentos();
+    GeralDAO<Levantamentos> gd = new GeralDAO<>();
+
+    public void desabilitarCampos() {
+        cbCodParqueamento.setEnabled(false);
+        cbBI.setEnabled(false);
+        TextFieldValor.setEnabled(false);
+    }
+
+    public void HabilitarCampos() {
+        cbCodParqueamento.setEnabled(true);
+        cbBI.setEnabled(true);
+        TextFieldValor.setEnabled(true);
+    }
+
+    public void limparCampos() {
+        cbBI.setSelectedItem("");
+        cbCodParqueamento.setSelectedItem("");
+        TextFieldValor.setText("");
+    }
+
+    public void listar() {
+        for (Levantamentos l : listarLevantamentos()) {
+            DefaultTableModel model = (DefaultTableModel) TableLevantamentos.getModel();
+            model.addRow(new Object[]{l.getCodParqueamento(), l.getCodLevantamento(), l.getNrBI(), l.getValor(), l.getDataL(), l.getHoraL()});
+        }
+    }
+
     Parqueamentos parqueamentos = new Parqueamentos();
     OutrasOperacoesDao o = new OutrasOperacoesDao();
-    String cod;
+    String cod, vagaActualizar;
 //    String codI;
 
     public FormularioLevantamento() {
@@ -249,6 +278,9 @@ public class FormularioLevantamento extends javax.swing.JPanel {
     private void cbCodParqueamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCodParqueamentoActionPerformed
         cod = cbCodParqueamento.getSelectedItem().toString();
         o.listarBIParqueamentoParaLevantamentoBI(cbBI, cod);
+        o.pegarPrecoVaga(TextFieldValor, cod, vagaActualizar);
+//        o.actualizarEstadoVagaTrue(vagaActualizar);
+//        o.actualizarEstadoParqueamento(cod);
 
     }//GEN-LAST:event_cbCodParqueamentoActionPerformed
 

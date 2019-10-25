@@ -16,5 +16,6 @@
     <mapping class="Model.Vagas"/>
     <mapping class="Model.Parqueamentos"/>
     <mapping class="Model.Levantamentos"/>
+    <mapping class="Model.Func"/>
   </session-factory>
 </hibernate-configuration>

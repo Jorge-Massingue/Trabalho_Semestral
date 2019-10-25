@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import metodos.Testes;
 //import net.sf.jasperreports.engine.JasperFillManager;
 //import net.sf.jasperreports.engine.JasperPrint;
 //import net.sf.jasperreports.view.JasperViewer;
@@ -34,7 +35,7 @@ public class OutrasOperacoesDao {
 
 //    public void imprimir(String localizacao) {
 //        try {
-//            JasperPrint print = JasperFillManager.fillReport(localizacao, null,con);
+//            JasperPrint print = JasperFillManager.fillReport(localizacao, null, con);
 //            JasperViewer.viewReport(print, false);
 //        } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, e);
@@ -167,13 +168,64 @@ public class OutrasOperacoesDao {
         }
 
     }
+    Testes t = new Testes();
 
+    public void pegarPrecoVaga(JTextField valor, String cod,String vagaUpdate) {
+        String sql = "SELECT vagaDescricao, valor, dataP, horaP FROM parqueamentos, vagas  WHERE parqueamentos.status = 'True'  AND estado = 'Activo'  AND codParqueamento = ? AND vagas.descricao = parqueamentos.vagaDescricao";
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, cod);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                double v = t.parqueamento(rs.getString("dataP"), rs.getString("horaP"), Double.parseDouble(rs.getString("valor")));
+                valor.setText(String.valueOf(v));
+                vagaUpdate = rs.getString("vagaDescricao");
+            }
+        } catch (Exception e) {
+        }
+
+    }
+
+//    public void definirEstadoParqueamentoValor(JTextField valor, String cod) {
+//        String sql = "SELECT nrBI, nrBIAlternativo, tipoParqueamento FROM parqueamentos WHERE parqueamentos.status = 'True' AND estado = 'Activo' AND codParqueamento = ?";
+//        try {
+//            pst = con.prepareStatement(sql);
+//            pst.setString(1, cod);
+//            rs = pst.executeQuery();
+//            while (rs.next()) {
+//                comboBox.addItem(rs.getString("nrBI"));
+//                comboBox.addItem(rs.getString("nrBIAlternativo"));
+//            }
+//        } catch (Exception e) {
+//        }
+//
+//    }
     public void actualizarEstadoVaga(String vaga) {
         String sql = "update vagas set status = ? where descricao = ? ";
         try {
             pst = con.prepareStatement(sql);
             pst.setString(1, "False");
             pst.setString(2, vaga);
+            pst.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    public void actualizarEstadoVagaTrue(String vaga) {
+        String sql = "update vagas set status = ? where descricao = ? ";
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, "True");
+            pst.setString(2, vaga);
+            pst.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    public void actualizarEstadoParqueamento(String cod) {
+        String sql = "update parqueamentos set estado = ? where codParqueamento = ? ";
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, "Inactivo");
+            pst.setString(2, cod);
             pst.executeUpdate();
         } catch (Exception e) {
         }

@@ -3,14 +3,13 @@ package Controller;
 //import Modelo.Cliente;
 import Model.Clientes;
 import Model.Funcionarios;
+import Model.Levantamentos;
 import Model.Parqueamentos;
 import Model.Utilizadores;
 import Model.Vagas;
 import Model.Viaturas;
 import Util.HibernateUtil;
 import java.util.ArrayList;
-import javax.swing.JComboBox;
-import javax.swing.table.DefaultTableModel;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -248,6 +247,22 @@ public class GeralDAO<O> {
             parqueamentos = (ArrayList<Parqueamentos>) cr.list();
             t.commit();
             return parqueamentos;
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        } finally {
+            s.close();
+        }
+    }
+    public static ArrayList<Levantamentos> listarLevantamentos() {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Levantamentos> levantamentos = new ArrayList<>();
+        try {
+            Transaction t = s.beginTransaction();
+            Criteria cr = s.createCriteria(Levantamentos.class);
+            levantamentos = (ArrayList<Levantamentos>) cr.list();
+            t.commit();
+            return levantamentos;
         } catch (Exception ex) {
             System.out.println("Erro: " + ex);
             return null;

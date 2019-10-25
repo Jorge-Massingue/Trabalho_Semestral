@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFuncionario" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="896f7bb5-e364-4480-ab93-36ab97f1ffee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select utilizadores.nrBI, nomeCompleto, nomeUtilizador, perfil, utilizadores.estado, email from funcionarios, utilizadores where funcionarios.nrBI = utilizadores.nrBI and funcionarios.status = 'True' and utilizadores.status = 'True']]>
+	</queryString>
+	<field name="nrBI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeUtilizador" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="perfil" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="166" splitType="Stretch">
+			<image>
+				<reportElement x="674" y="0" width="128" height="128" uuid="ffd63456-0fcc-4f4e-97e1-98462c6537bb"/>
+				<imageExpression><![CDATA["G:\\UEM\\NÍVEL II\\SEMESTRE II\\POO\\Trabe_Semestral_POO\\src\\Imagens\\1467688374_Hipster-08.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="674" y="128" width="128" height="38" uuid="4ea70d30-cf08-4da3-9b97-a9c0e04f2f32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Verdant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="45" width="214" height="46" uuid="2cbfea04-8b60-477a-b865-195b0daef81b"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Palvic, Lda]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="274" height="37" uuid="45af064d-605c-4d99-b1af-b62333ac9f9b"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Utilizadores]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="20" y="37" width="151" height="29" uuid="803eccab-a6b8-4472-af3a-06a65c417e8a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="121" y="2" width="84" height="20" uuid="7331f3f5-3322-41a9-8989-36e0f618b7b2"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="2" width="128" height="20" uuid="fdd23233-f7ea-4623-8ab3-118440c7c937"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="2" width="100" height="20" uuid="f7eaff8b-7446-401a-b7c2-b93c532075d1"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="2" width="100" height="20" uuid="ca158003-6b03-480e-a6be-74c3dd2eaebf"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Utilizador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="2" width="100" height="20" uuid="1de84089-6d8f-496f-9ce3-80a6a476c9ab"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Perfil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="543" y="2" width="100" height="20" uuid="c2185c3a-d8bb-45b9-84a7-0618781921e7"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement x="20" y="31" width="762" height="1" uuid="9b1caa17-4964-468b-9bca-0e3a4086c61e"/>
+			</line>
+			<textField>
+				<reportElement x="121" y="0" width="84" height="20" uuid="796bb674-8fa9-4490-b2ad-3d9c7902cba8"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="0" width="128" height="20" uuid="e10dfc3c-3438-424a-bb21-5afad1a863d3"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="21" y="0" width="100" height="20" uuid="fc42b6f1-d6e6-48ec-b8bf-29e5e5b9460a"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrBI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="0" width="100" height="20" uuid="8edc2030-baaa-4fee-8dcd-416fb6c22f3e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeUtilizador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="0" width="100" height="20" uuid="00f7c29e-d871-4ce3-b5cf-05222cce1ca3"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perfil}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="543" y="0" width="100" height="20" uuid="a928b7c6-3948-4c8a-bfcf-291853a3edcb"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="72" splitType="Stretch">
+			<line>
+				<reportElement x="21" y="7" width="762" height="1" uuid="1598257b-650e-4941-8a43-237508a1df0a"/>
+			</line>
+			<staticText>
+				<reportElement x="224" y="8" width="357" height="20" uuid="625b1b91-40ab-41da-8b79-938f1e33d6cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parque de Estacionamento de Malhazine Palvic, Lda.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="28" width="437" height="20" uuid="b9c16726-1508-490f-87f3-57374c3f4e1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro do Malhazine - Av, Lurdes Mutola, Maputo Moçambique]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="48" width="435" height="20" uuid="52712faa-a536-4df0-ad1e-9bc61d6eb40e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cel.: +258 82/84 8887986 82/84 4883020 Telefax: 21 470 466]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="674" y="0" width="80" height="20" uuid="1250381a-c347-4174-83e5-4d7ac9b994aa"/>
+				<textElement textAlignment="Right">
+					<font fontName="Algerian" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="754" y="0" width="40" height="20" uuid="52aaea0f-fa61-46ce-b538-d8343b645824"/>
+				<textElement>
+					<font fontName="Algerian" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="13" splitType="Stretch"/>
+	</summary>
+</jasperReport>

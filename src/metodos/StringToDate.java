@@ -6,10 +6,12 @@
 package metodos;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+//import org.joda.time.Hours;
 
 /**
  *
@@ -38,6 +40,16 @@ public class StringToDate {
         }
         return null;
 
+    }
+
+    public static int converter(String tempo) {
+        SimpleDateFormat dfa = new SimpleDateFormat("HH:mm:ss");
+        try {
+          return dfa.parse(tempo).getHours();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
     }
 
 }

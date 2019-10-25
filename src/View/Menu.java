@@ -22,13 +22,14 @@ import metodos.Card;
 public class Menu extends javax.swing.JFrame {
 
     Card card = new Card();
-    PainelMenu painelMenu = new PainelMenu();
+   // PainelMenu painelMenu = new PainelMenu();
     FormFuncionario formFuncionario = new FormFuncionario();
     FormUtilizador formUtilizador = new FormUtilizador();
     FormularioViatura formViatura = new FormularioViatura();
     FormularioCliente formCliente = new FormularioCliente();
     FormularioLevantamento formLevantamento = new FormularioLevantamento();
     FormularioParqueamento formParqueamento = new FormularioParqueamento();
+    ConfigUser configUser = new ConfigUser();
     java.awt.event.MouseEvent ev;
     java.awt.event.ActionEvent et;
 
@@ -44,7 +45,7 @@ public class Menu extends javax.swing.JFrame {
         this.setFocusable(true);
         this.setUndecorated(true);
     }
-    //Login2 login = new Login2();
+    //Login2 login = new Login();
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,6 +100,11 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -628,7 +634,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_painelDefinicoesMouseClicked
 
     private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
-        System.exit(0);
+//        System.exit(0);
+ int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Sair O Sistema?");
+        if(confirmacao == 0){
+           System.exit(0);
+        }else{
+            
+        }
     }//GEN-LAST:event_buttonSairActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -661,6 +673,9 @@ public class Menu extends javax.swing.JFrame {
         //        painelCard.add(jPanel3);
         //        painelCard.repaint();
         //        painelCard.revalidate();
+                         
+            card.chamarPainel(painelCard, configUser);
+       
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btnRelatorioActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActividadesActionPerformed
@@ -675,7 +690,7 @@ public class Menu extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja fechar a seccao?");
         if(confirmacao == 0){
-            Login2 login = new Login2();
+            Login login = new Login();
             this.dispose();
             login.setVisible(true);
         }else{
@@ -734,6 +749,10 @@ public class Menu extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_formKeyPressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -135,10 +135,13 @@ public class FormularioCliente extends javax.swing.JPanel {
         labelNome.setText("Nome");
 
         textFieldNome.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        textFieldNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         labelContacto.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelContacto.setText("Contacto");
 
+        textFieldContacto.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        textFieldContacto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldContactoActionPerformed(evt);
@@ -148,6 +151,8 @@ public class FormularioCliente extends javax.swing.JPanel {
         labelNumBi.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelNumBi.setText("Numero de BI");
 
+        textFiledNumBi.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        textFiledNumBi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFiledNumBi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFiledNumBiActionPerformed(evt);
@@ -156,6 +161,9 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         labelMorada.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelMorada.setText("Morada");
+
+        TextFieldMorada.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        TextFieldMorada.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         labelGenero.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelGenero.setText("Genero");
@@ -183,6 +191,7 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonSalvar.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Add1.png"))); // NOI18N
+        ButtonSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonSalvarActionPerformed(evt);
@@ -191,6 +200,7 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonUpdate.setBackground(new java.awt.Color(255, 255, 255));
         ButtonUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Update.png"))); // NOI18N
+        ButtonUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonUpdateActionPerformed(evt);
@@ -199,6 +209,7 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
         ButtonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Delete.png"))); // NOI18N
+        ButtonDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonDeleteActionPerformed(evt);
@@ -207,6 +218,7 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonList.setBackground(new java.awt.Color(255, 255, 255));
         ButtonList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/List.png"))); // NOI18N
+        ButtonList.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ButtonList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonListActionPerformed(evt);
@@ -241,7 +253,7 @@ public class FormularioCliente extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(129, 190, 234));
 
         ButtonSearch.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/lupa.png"))); // NOI18N
+        ButtonSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Search.png"))); // NOI18N
         ButtonSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonSearchActionPerformed(evt);
@@ -296,6 +308,8 @@ public class FormularioCliente extends javax.swing.JPanel {
 
         ButtonImprimir.setBackground(new java.awt.Color(255, 255, 255));
         ButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Print.png"))); // NOI18N
+        ButtonImprimir.setToolTipText("Imprimir");
+        ButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonImprimirActionPerformed(evt);
@@ -305,9 +319,11 @@ public class FormularioCliente extends javax.swing.JPanel {
         labelEmail.setFont(new java.awt.Font("Bookman Old Style", 3, 16)); // NOI18N
         labelEmail.setText("Email");
 
-        textFieldEmail.setFont(new java.awt.Font("Bookman Old Style", 0, 11)); // NOI18N
+        textFieldEmail.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        textFieldEmail.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         dateChooserDataNascimento.setDateFormatString("dd-MM-yyyy");
+        dateChooserDataNascimento.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -352,7 +368,9 @@ public class FormularioCliente extends javax.swing.JPanel {
                                             .addGap(0, 0, Short.MAX_VALUE))
                                         .addComponent(dateChooserDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(TabbedPaneCliente)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(textFieldEmail)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(15, 15, 15)
                                     .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -362,8 +380,7 @@ public class FormularioCliente extends javax.swing.JPanel {
                                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(textFieldEmail))
+                                    .addGap(126, 126, 126)))
                             .addGap(80, 80, 80)))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,14 +428,14 @@ public class FormularioCliente extends javax.swing.JPanel {
                 .addComponent(labelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonList, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(TabbedPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -431,7 +448,7 @@ public class FormularioCliente extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

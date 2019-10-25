@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFuncionario" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="896f7bb5-e364-4480-ab93-36ab97f1ffee">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT parqueamentos.matricula, nomeCompleto, nrBIAlternativo, nomeAlternativo, tipoParqueamento, dataP, HoraP, vagaDescricao, parqueamentos.estado
+FROM parqueamentos, viaturas, clientes
+WHERE clientes.nrBi = parqueamentos.nrBI AND viaturas.matricula = parqueamentos.matricula AND parqueamentos.status = 'True']]>
+	</queryString>
+	<field name="matricula" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeCompleto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nrBIAlternativo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeAlternativo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoParqueamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="HoraP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vagaDescricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="166" splitType="Stretch">
+			<image>
+				<reportElement x="674" y="0" width="128" height="128" uuid="ffd63456-0fcc-4f4e-97e1-98462c6537bb"/>
+				<imageExpression><![CDATA["G:\\UEM\\NÍVEL II\\SEMESTRE II\\POO\\Trabe_Semestral_POO\\src\\Imagens\\1467688374_Hipster-08.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="674" y="128" width="128" height="38" uuid="4ea70d30-cf08-4da3-9b97-a9c0e04f2f32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Verdant]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="45" width="214" height="46" uuid="2cbfea04-8b60-477a-b865-195b0daef81b"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Palvic, Lda]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="311" height="37" uuid="45af064d-605c-4d99-b1af-b62333ac9f9b"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lista de Parqueamentos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="20" y="37" width="151" height="29" uuid="803eccab-a6b8-4472-af3a-06a65c417e8a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="2" width="71" height="20" uuid="a105866b-3083-4d76-9f06-3f180241fdf7"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="2" width="100" height="20" uuid="8d878e0c-2be0-4f29-8d23-3ceb52be1ae0"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="2" width="100" height="20" uuid="e6724eee-6d25-474f-91bb-116fd9dc0acf"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BI Alternativo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="2" width="117" height="20" uuid="9991d612-cce2-419b-a62d-97cdc7fc3a8a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Alternativo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="409" y="2" width="100" height="20" uuid="a9148fb3-43c0-4d8c-a2aa-e64bbf68337a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parqueamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="509" y="2" width="60" height="20" uuid="f6c9df4a-a759-42df-8455-8cb559b070aa"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="569" y="2" width="46" height="20" uuid="ed5c37e1-bc5c-4060-b408-86a7e66c9786"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="615" y="2" width="44" height="20" uuid="39f368c2-0b2f-449c-9415-2bf67af07f30"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vaga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="659" y="2" width="100" height="20" uuid="a6a7a668-c316-499d-8366-1c6ebd00dc2d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement x="20" y="31" width="762" height="1" uuid="9b1caa17-4964-468b-9bca-0e3a4086c61e"/>
+			</line>
+			<textField>
+				<reportElement x="20" y="4" width="72" height="20" uuid="66702bd3-2111-407b-893c-a38bb33df125"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="4" width="100" height="20" uuid="0083e972-63be-40bd-8b03-5bed94764f83"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="4" width="100" height="20" uuid="99ecb34f-a6a4-4ce9-a71e-6876c6bb5b10"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrBIAlternativo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="4" width="117" height="20" uuid="765933ce-7cae-40d6-ac4b-225ceab9193d"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeAlternativo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="4" width="100" height="20" uuid="6d153b46-ba7d-4683-acd2-0e2a6175d422"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoParqueamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="509" y="4" width="60" height="20" uuid="99b8d42b-94ab-40b8-a717-57738a0a9f0a"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="569" y="4" width="46" height="20" uuid="922d60bc-4121-4285-a22c-d356638244b5"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HoraP}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="615" y="4" width="44" height="20" uuid="d066d670-50fd-49d5-bba9-11d9bc36fd84"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vagaDescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="659" y="4" width="100" height="20" uuid="a58b3c4e-c52e-48d3-a9b5-674dc4199d87"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="72" splitType="Stretch">
+			<line>
+				<reportElement x="21" y="7" width="762" height="1" uuid="1598257b-650e-4941-8a43-237508a1df0a"/>
+			</line>
+			<staticText>
+				<reportElement x="224" y="8" width="357" height="20" uuid="625b1b91-40ab-41da-8b79-938f1e33d6cf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parque de Estacionamento de Malhazine Palvic, Lda.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="28" width="437" height="20" uuid="b9c16726-1508-490f-87f3-57374c3f4e1c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bairro do Malhazine - Av, Lurdes Mutola, Maputo Moçambique]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="48" width="435" height="20" uuid="52712faa-a536-4df0-ad1e-9bc61d6eb40e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cel.: +258 82/84 8887986 82/84 4883020 Telefax: 21 470 466]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="674" y="0" width="80" height="20" uuid="1250381a-c347-4174-83e5-4d7ac9b994aa"/>
+				<textElement textAlignment="Right">
+					<font fontName="Algerian" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="754" y="0" width="40" height="20" uuid="52aaea0f-fa61-46ce-b538-d8343b645824"/>
+				<textElement>
+					<font fontName="Algerian" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="13" splitType="Stretch"/>
+	</summary>
+</jasperReport>

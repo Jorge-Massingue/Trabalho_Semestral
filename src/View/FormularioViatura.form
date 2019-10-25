@@ -188,7 +188,7 @@
         <Component class="javax.swing.JTextField" name="textFieldMatricula">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Bookman Old Style" size="11" style="0"/>
+              <Font name="Bookman Old Style" size="14" style="0"/>
             </Property>
           </Properties>
         </Component>
@@ -201,6 +201,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textFieldModelo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="14" style="0"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldModeloActionPerformed"/>
           </Events>
@@ -222,6 +227,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TextFieldCor">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="14" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelNumChassis">
           <Properties>
@@ -232,6 +242,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TextFieldNumChassis">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="14" style="0"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldNumChassisActionPerformed"/>
           </Events>
@@ -452,6 +467,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TextFieldCodMotor">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="14" style="0"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldCodMotorActionPerformed"/>
           </Events>
@@ -465,6 +485,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TextFieldFabricante">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="14" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelEstado">
           <Properties>
@@ -476,6 +501,9 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="comboBoxTipo">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Bookman Old Style" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="13">
                 <StringItem index="0" value="Selecione o tipo"/>
@@ -525,6 +553,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagens/Print.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Imprimir"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonImprimirActionPerformed"/>
